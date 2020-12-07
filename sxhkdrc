@@ -130,3 +130,14 @@ super + ctrl + {Left,Down,Up,Right}
 
 # Custom move/resize
 alt + super + {Left,Down,Up,Right}
+	/home/leviswings/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+
+
+# ---------------------------------------------
+# CUSTOM
+# ---------------------------------------------
+
+# Google-Chrome
+
+super + shift + g
+	google-chrome
