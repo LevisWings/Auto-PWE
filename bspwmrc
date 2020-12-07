@@ -3,9 +3,9 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 compton --config /home/leviswings/.config/compton/compton.conf &
 wmname LG3D &
-#feh --bg-fill /home/leviswings/Wallpapers/FondoDePantalla.png &
-#~/.config/polybar/launch.sh &
-#killall mate-notification-daemon; dunst &
+feh --bg-fill /home/leviswings/Wallpapers/FondoDePantalla.png &
+~/.config/polybar/launch.sh &
+killall mate-notification-daemon; dunst &
 
 bspc config pointer_modifier mod1
 
