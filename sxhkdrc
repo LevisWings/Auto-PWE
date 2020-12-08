@@ -130,7 +130,7 @@ super + ctrl + {Left,Down,Up,Right}
 
 # Custom move/resize
 alt + super + {Left,Down,Up,Right}
-	/home/leviswings/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+	/home/username/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
 
 # ---------------------------------------------
