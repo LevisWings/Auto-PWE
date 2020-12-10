@@ -9,9 +9,9 @@ Auto-PWE (Auto Professional Work Environment) es un script en bash que te permit
 3) ./Auto-PWE.sh : Ejecutamos y veremos los comandos a ejecutar.
 4) Se deberá ejecutar todos los 5 pasos de manera ordenada.
 5) Disfruta
+## Configuración manual:
+- Video by s4vitar: https://www.youtube.com/watch?v=66IAhBI0bCM
 ## Créditos
 - Autor: leviswings
 - Inspirado en s4vitar
 - Especial gracias a Marcelo Vazquez (alias s4vitar), Antonio Sarosi y Heath Adams (alias TheCyberMentor)
-
-EN CONSTRUCCIÓN
