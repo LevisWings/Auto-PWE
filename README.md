@@ -1,5 +1,5 @@
 # Auto-PWE
-Auto-PWE (Auto Professional Work Environment) es un script en bash que te permite convertir una distribución de Linux en un entorno de trabajo profesional de manera automática. Sin embargo, este script también te permite personalizar varias utilidades como el estilo del powerlevel10k, el tema de la polybar, etc., de manera que no se configure todo en 1 solo estilo.
+Auto-PWE (Auto Professional Work Environment) es un script en bash que te permite convertir una distribución de Linux en un entorno de trabajo profesional de manera automática (style s4vitar). Sin embargo, este script también te permite personalizar varias utilidades como el estilo del powerlevel10k, el tema de la polybar, etc., de manera que no se configure todo en un solo estilo, sino que el usuario elija ciertas configuraciones según sus preferencias.
 ## Testeado en las siguientes distribuciones de Linux:
 - Kali Linux 2020.4
 - Parrot Security 4.10
