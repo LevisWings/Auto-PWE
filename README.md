@@ -4,7 +4,7 @@ Auto-PWE (Auto Professional Work Environment) es un script en bash que te permit
 - Kali Linux 2020.4
 - Parrot Security 4.10
 ## Uso:
-1) wget : Para descargar el script
+1) wget https://raw.githubusercontent.com/LevisWings/Auto-PWE/main/Auto-PWE.sh : Para descargar el script
 2) chmod +x Auto-PWE.sh : Asignamos permisos de ejecución.
 3) ./Auto-PWE.sh : Ejecutamos y veremos los comandos a ejecutar.
 4) Se deberá ejecutar todos los 5 pasos de manera ordenada.
