@@ -4,11 +4,34 @@ Auto-PWE (Auto Professional Work Environment) es un script en bash que te permit
 - Kali Linux 2020.4
 - Parrot Security 4.10
 ## Uso:
-1) wget https://raw.githubusercontent.com/LevisWings/Auto-PWE/main/Auto-PWE.sh : Para descargar el script
-2) chmod +x Auto-PWE.sh : Asignamos permisos de ejecución.
-3) ./Auto-PWE.sh : Ejecutamos y veremos los comandos a ejecutar.
-4) Se deberá ejecutar todos los 5 pasos de manera ordenada.
-5) Disfruta
+**1)** Descargar el script:
+```
+wget https://raw.githubusercontent.com/LevisWings/Auto-PWE/main/Auto-PWE.sh
+```
+**2)** Asignamos permisos de ejecución:
+```
+chmod +x Auto-PWE.sh
+```
+**3)** Ejecutamos y veremos los comandos a ejecutar:
+```
+./Auto-PWE.sh
+```
+**4)** Se deberá ejecutar todos los 5 pasos de manera ordenada.
+
+**5)** Disfruta.
+## Vista general
+[![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")
+## Utilidades:
+- bspwm: Tiling Window Manager (administrador de ventanas en mosaico).
+- zsh: Shell.
+- powerlevel10k: Tema de la zsh.
+- sxhdk: Es un demonio que escucha los eventos del teclado y ejecuta comandos.
+- polybar: Herramienta rápida y fácil de usar para crear barras de estado.
+- compton: Es un compositor para X y una bifurcación de xcompmgr-dana.
+- rofi: Selector de ventana y lanzador de aplicaciones.
+- feh: Visor de imágenes ligero, configurable y versátil.
+- Hack Nerd Font: Fuente.
+- fzf: Buscador difuso de línea de comandos de propósito general.
 ## Configuración manual:
 - Video by s4vitar: https://www.youtube.com/watch?v=66IAhBI0bCM
 ## Créditos
