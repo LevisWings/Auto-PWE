@@ -25,7 +25,7 @@ chmod +x Auto-PWE.sh
 - bspwm: Tiling Window Manager (administrador de ventanas en mosaico).
 - zsh: Shell.
 - powerlevel10k: Tema de la zsh.
-- sxhdk: Es un demonio que escucha los eventos del teclado y ejecuta comandos.
+- sxhkd: Es un "demonio" que escucha los eventos del teclado y ejecuta comandos.
 - polybar: Herramienta rápida y fácil de usar para crear barras de estado.
 - compton: Es un compositor para X y una bifurcación de xcompmgr-dana.
 - rofi: Selector de ventana y lanzador de aplicaciones.
