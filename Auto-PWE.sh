@@ -214,7 +214,7 @@ function theme_polybar(){
 	done
 	if [ $num_theme == 11 ];then
 		while true; do
-			echo -ne "${purple}\n[?] ¿Quieres instalar la configuración de s4vitar?${end}\n\t${purple} - [${end}${yellow}1${end}${purple}] Si\n\t - [${end}${yellow}2${end}${purple}] No\n\t - Opción: ${end}"
+			echo -ne "${purple}\n[?] ¿Quieres instalar la configuración de s4vitar?${end}\n\n\t${purple} - [${end}${yellow}1${end}${purple}] Si\n\t - [${end}${yellow}2${end}${purple}] No\n\t - Opción: ${end}"
 			read option2
 			if [[ $option2 == 1 ]]; then
 				echo -e "\n${yellow}[+] Instalando la configuración de s4vitar${end}"
