@@ -113,7 +113,7 @@ function bspwm_and_sxhkd(){
 	cd && cp /usr/local/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/
 	cp /usr/local/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/
 	touch ~/.xinitrc
-	echo "sxhkd &\nexec bspwm" > ~/.xinitrc
+	echo -e "sxhkd &\nexec bspwm" > ~/.xinitrc
 	rm ~/.config/bspwm/bspwmrc
 	cd ~/.config/bspwm && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/bspwmrc
 	cat ~/.config/bspwm/bspwmrc | sed "s/username/$(whoami)/g" > ~/.config/bspwm/bspwmrc
