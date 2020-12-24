@@ -181,6 +181,7 @@ function polybar(){
 			sudo rm -f /opt/polybar-3.4.3.tar 2>/dev/null # Eliminar existencia
 			sudo wget https://github.com/polybar/polybar/releases/download/3.4.3/polybar-3.4.3.tar; comprobacion
 			sudo tar -xf polybar-3.4.3.tar; comprobacion
+			sudo rm -f /opt/polybar-3.4.3.tar
 			cd /opt/polybar && sudo mkdir build && cd build
 			sudo cmake .. ; comprobacion
 			sudo make -j$(nproc); comprobacion
@@ -194,6 +195,7 @@ function polybar(){
 			sudo rm -f /opt/polybar-3.4.3.tar 2>/dev/null # Eliminar existencia
 			sudo wget https://github.com/polybar/polybar/releases/download/3.4.3/polybar-3.4.3.tar; comprobacion
 			sudo tar -xf polybar-3.4.3.tar; comprobacion
+			sudo rm -f /opt/polybar-3.4.3.tar
 			cd /opt/polybar && sudo mkdir build && cd build
 			sudo cmake .. ; comprobacion
 			# Bypass del error
