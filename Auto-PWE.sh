@@ -17,7 +17,7 @@ function banner(){
 	echo -e "  ██╔══██╗██║░░░██║╚══██╔══╝██╔══██╗░░░░░░██╔══██╗░██║░░██╗░░██║██╔════╝\t\t   ${cyan}Auto Professional Work Environment${end}"
 	echo -e "  ███████║██║░░░██║░░░██║░░░██║░░██║█████╗██████╔╝░╚██╗████╗██╔╝█████╗░░\tScript to customize the work environment automatically"
 	echo -e "  ██╔══██║██║░░░██║░░░██║░░░██║░░██║╚════╝██╔═══╝░░░████╔═████║░██╔══╝░░\t\t\t   Inspired by ${red}s4vitar${end}"
-	echo -e "  ██║░░██║╚██████╔╝░░░██║░░░╚█████╔╝░░░░░░██║░░░░░░░╚██╔╝░╚██╔╝░███████╗   Video by s4vitar: https://www.youtube.com/watch?v=66IAhBI0bCM"
+	echo -e "  ██║░░██║╚██████╔╝░░░██║░░░╚█████╔╝░░░░░░██║░░░░░░░╚██╔╝░╚██╔╝░███████╗    Video by s4vitar: https://www.youtube.com/watch?v=66IAhBI0bCM"
 	echo -e "  ╚═╝░░╚═╝░╚═════╝░░░░╚═╝░░░░╚════╝░░░░░░░╚═╝░░░░░░░░╚═╝░░░╚═╝░░╚══════╝\t\t\t  Created by ${blue}leviswings${end}"
 }
 
@@ -90,6 +90,8 @@ function updates_directories_dependencies(){
 	done
 	echo -e "${yellow}\n[*] Instalando dependencias...\n${end}"
 	sudo apt-get install libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y
+	sudo apt install build-essential git cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev -y
+	sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev -y
 }
 
 function bspwm_and_sxhkd(){
@@ -124,20 +126,18 @@ function bspwm_and_sxhkd(){
 	cd ~/.config/bspwm/scripts && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/bspwm_resize && chmod +x ~/.config/bspwm/scripts/bspwm_resize
 }
 
-function compton_feh_and_polybar(){
+function compton_and_feh(){
 	# Eliminando existencias
-	rm -f -r -p ~/.config/{compton,polybar} 2>/dev/null
+	rm -f -r ~/.config/compton 2>/dev/null
 	rm -r -f ~/Wallpapers 2>/dev/null
-	# Instalando compton y polybar
-	mkdir -p ~/.config/{compton,polybar}
+	# Instalando compton
+	mkdir ~/.config/compton
 	mkdir -p ~/Wallpapers
 	echo -e "${yellow}\n[*] Instalando compton y feh...\n${end}"
 	sudo apt install compton feh -y; comprobacion
 	cd ~/Wallpapers/ && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/FondoDePantalla.jpg ; comprobacion
 	echo -e "${yellow}\n [*] Realizando algunas configuraciones\n${end}"
 	cd ~/.config/compton/ && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/compton.conf ; comprobacion
-	echo -e "\n${yellow}[*] Inslando polybar...\n${end}"
-	sudo apt install polybar -y; comprobacion
 }
 
 function scripts(){
@@ -159,11 +159,79 @@ function font(){
 	sleep 1
 }
 
-function theme_polybar(){
+function polybar(){
 	# Eliminar existencias
+	rm -f -r ~/.config/polybar 2>/dev/null
 	rm -f -r ~/polybar-themes 2>/dev/null
 	# Instalar polybar y su tema
+	mkdir ~/.config/polybar
 	sudo whoami > /dev/null 2>&1; comprobacion
+	while true; do
+		clear
+		banner
+		echo -e "\n${purple}[?] Elige la opción a instalar para la polybar:${end}\n\n\t - [${yellow}1${end}] Compilación 1\n\t - [${yellow}2${end}] Compilación 2 (a prueba de errores)\n\t - [${yellow}3${end}] Método estable"
+		echo -e "\n${red}[!] Se recomienda usar las opciones de forma ordenada, es decir, primero el 1, y si nos da un error, probamos con el 2, y si este no funciona, probamos con el 3${end}"
+		echo -ne "\n\t - Opción: "
+		read opcion_polybar
+		if [ $opcion_polybar == 1 ]; then
+			# Eliminar existencia
+			sudo rm -f -r /opt/polybar/ 2>/dev/null
+			echo -e "\n${yellow}[*] Inslando polybar...\n${end}"
+			cd /opt
+			sudo rm -f /opt/polybar-3.4.3.tar 2>/dev/null # Eliminar existencia
+			sudo wget https://github.com/polybar/polybar/releases/download/3.4.3/polybar-3.4.3.tar; comprobacion
+			sudo tar -xf polybar-3.4.3.tar; comprobacion
+			cd /opt/polybar && sudo mkdir build && cd build
+			sudo cmake .. ; comprobacion
+			sudo make -j$(nproc); comprobacion
+			sudo make install; comprobacion
+			break
+		elif [ $opcion_polybar == 2 ]; then
+			# Eliminar existencia
+			sudo rm -f -r /opt/polybar/ 2>/dev/null
+			echo -e "\n${yellow}[*] Inslando polybar...\n${end}"
+			cd /opt
+			sudo rm -f /opt/polybar-3.4.3.tar 2>/dev/null # Eliminar existencia
+			sudo wget https://github.com/polybar/polybar/releases/download/3.4.3/polybar-3.4.3.tar; comprobacion
+			sudo tar -xf polybar-3.4.3.tar; comprobacion
+			cd /opt/polybar && sudo mkdir build && cd build
+			sudo cmake .. ; comprobacion
+			# Bypass del error
+			sudo mv /usr/lib/python3.9/fractions.py /usr/lib/python3.9/fractions.pyc
+			sudo cp /usr/lib/python3.8/fractions.py /usr/lib/python3.9/fractions.py
+			sudo make -j$(nproc)
+			if [[ "$(echo $?)" == "0" ]]; then
+				echo -e "${cyan}\n[+] Acción realizada con éxito\n${end}"
+				sudo make install
+				if [[ "$(echo $?)" == "0" ]]; then
+					echo -e "${cyan}\n[+] Acción realizada con éxito\n${end}"
+					sudo rm /usr/lib/python3.9/fractions.py
+					sudo mv /usr/lib/python3.9/fractions.pyc /usr/lib/python3.9/fractions.py
+				else
+					sudo rm /usr/lib/python3.9/fractions.py
+					sudo mv /usr/lib/python3.9/fractions.pyc /usr/lib/python3.9/fractions.py
+					echo -e "${red}\n[!] Ocurrió un error\n${end}"
+					exit 1
+				fi
+			else
+				sudo rm /usr/lib/python3.9/fractions.py
+				sudo mv /usr/lib/python3.9/fractions.pyc /usr/lib/python3.9/fractions.py
+				echo -e "${red}\n[!] Ocurrió un error\n${end}"
+				exit 1
+			fi
+			break
+		elif [ $opcion_polybar == 3 ]; then
+			# Eliminar existencia
+			sudo rm -f -r /opt/polybar/ 2>/dev/null
+			echo -e "\n${yellow}[*] Inslando polybar...\n${end}"
+			sudo apt install polybar -y; comprobacion
+			break
+		else
+			:
+		fi
+	done
+	echo -e "\n${cyan}[+] Polybar instalada correctamente..."
+	# FIN TESTING
 	num_theme=0
 	option=0
 	key=0
@@ -413,7 +481,7 @@ if [ $# -eq 1 ]; then
 			clear
 			banner
 			echo
-			compton_feh_and_polybar
+			compton_and_feh
 			clear
 			banner
 			echo
@@ -445,7 +513,7 @@ if [ $# -eq 1 ]; then
 			clear
 			banner
 			echo
-			theme_polybar
+			polybar
 			clear
 			banner
 			echo
