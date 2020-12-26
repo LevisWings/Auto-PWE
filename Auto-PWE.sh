@@ -260,6 +260,12 @@ function polybar(){
 			chmod +x ~/polybar-themes/polybar-$num_theme/scripts/*
 			chmod +x ~/polybar-themes/polybar-$num_theme/launch.sh
 			chmod +x ~/polybar-themes/polybar-$num_theme/tester.sh 2>/dev/null
+			if [ $num_theme == 8 ]; then
+				chmod +x ~/polybar-themes/polybar-$num_theme/source/feather/scripts/*
+				chmod +x ~/polybar-themes/polybar-$num_theme/source/material/scripts/*
+				chmod +x ~/polybar-themes/polybar-$num_theme/source/siji/scripts/*
+				chmod +x ~/polybar-themes/polybar-$num_theme/source/typicons/scripts/*
+			fi
 			cd ~/polybar-themes/polybar-$num_theme
 			mkdir -p ~/.local/share/fonts
 			cp -r fonts/* ~/.local/share/fonts
