@@ -249,12 +249,17 @@ function polybar(){
 	banner
 	echo
 	echo -e "\n${yellow}[*] Instalando los temas para la polybar...\n${end}"
-	cd && git clone https://github.com/adi1090x/polybar-themes
+	cd && git clone https://github.com/LevisWings/Auto-PWE/
+	mv Auto-PWE/polybar-themes/ .
+	rm -f -r Auto-PWE
 	while true; do
 		echo -ne "\n${purple}[?] Elija el tema a instalar: ${end}"
 		read num_theme
 		if (($num_theme >= 1 && $num_theme <= 13)); then
 			rm ~/.config/polybar/launch.sh 2>/dev/null
+			chmod +x ~/polybar-themes/polybar-$num_theme/scripts/*
+			chmod +x ~/polybar-themes/polybar-$num_theme/launch.sh
+			chmod +x ~/polybar-themes/polybar-$num_theme/tester.sh 2>/dev/null
 			cd ~/polybar-themes/polybar-$num_theme
 			mkdir -p ~/.local/share/fonts
 			cp -r fonts/* ~/.local/share/fonts
