@@ -21,6 +21,7 @@ chmod +x Auto-PWE.sh
 **5)** Disfruta.
 ## Vista general
 [![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")
+[![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/Overview.png?raw=true "Overview")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Overview")
 ## Utilidades:
 - bspwm: Tiling Window Manager (administrador de ventanas en mosaico).
 - zsh: Shell.
