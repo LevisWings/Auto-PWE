@@ -4,9 +4,10 @@ Auto-PWE (Auto Professional Work Environment) es un script en bash que te permit
 - Kali Linux 2020.4
 - Parrot Security 4.10
 ## Uso:
-**1)** Descargar el script:
+**1)** Clonamos el repositorio:
 ```
-wget https://raw.githubusercontent.com/LevisWings/Auto-PWE/main/Auto-PWE.sh
+git clone https://github.com/LevisWings/Auto-PWE
+cd Auto-PWE
 ```
 **2)** Asignamos permisos de ejecución:
 ```
@@ -21,18 +22,19 @@ chmod +x Auto-PWE.sh
 **5)** Disfruta.
 ## Vista general
 [![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")
-[![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/Overview.png?raw=true "Overview")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Overview")
+[![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/Overview.png?raw=true "Overview")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/Overview.png?raw=true "Overview")
 ## Utilidades:
-- bspwm: Tiling Window Manager (administrador de ventanas en mosaico).
+- bspwm: Tiling Window Manager (administrador de ventanas en mosaico). Autor: [baskerville](https://github.com/baskerville)
 - zsh: Shell.
-- powerlevel10k: Tema de la zsh.
-- sxhkd: Es un "demonio" que escucha los eventos del teclado y ejecuta comandos.
+- powerlevel10k: Tema de la zsh. Autor: [romkatv](https://github.com/romkatv)
+- sxhkd: Es un "demonio" que escucha los eventos del teclado y ejecuta comandos. Autor: [baskerville](https://github.com/baskerville)
 - polybar: Herramienta rápida y fácil de usar para crear barras de estado.
-- compton: Es un compositor para X y una bifurcación de xcompmgr-dana.
+- polybar-themes : Temas para la polybar. Autor: [adi1090x](https://github.com/adi1090x)
+- compton: Es un compositor para X y una bifurcación de xcompmgr-dana. Autor: [chjj](https://github.com/chjj)
 - rofi: Selector de ventana y lanzador de aplicaciones.
 - feh: Visor de imágenes ligero, configurable y versátil.
 - Hack Nerd Font: Fuente.
-- fzf: Buscador difuso de línea de comandos de propósito general.
+- fzf: Buscador difuso de línea de comandos de propósito general. Autor: [junegunn](https://github.com/junegunn)
 ## Configuración manual:
 - Video by s4vitar: https://www.youtube.com/watch?v=66IAhBI0bCM
 ## Créditos

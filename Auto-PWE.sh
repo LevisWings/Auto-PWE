@@ -23,6 +23,29 @@ function banner(){
 
 # Declaracion de variables
 username=""
+ruta_actual=""
+
+function update_rutes(){
+    clear && banner
+    echo && sudo whoami > /dev/null 2>&1;
+    clear && banner
+    echo -e "\n${yellow}[*] Actualizando rutas del sistema...\n${end}"
+    sudo updatedb # Actualizar rutas
+    ruta_actual=$(locate Auto-PWE.sh | sed "s/\/Auto-PWE.sh//")
+    if [[ "$(echo $?)" == "0" ]]; then
+        if [[ "$(echo $ruta_actual | wc -l)" == 1 ]]; then
+		    : # Rutas actualizadas con exito
+        else
+            echo -e "${red}\n[!] Al paracer hay más de 1 archivo llamado \"Auto-PWE.sh\"${end}"
+            echo -e "${red}[!] Asegúrese de tener 1 solo archivo con ese nombre!${end}"
+            exit 1
+        fi
+	else
+		echo -e "${red}\n[!] No se encontró ningún archivo llamado \"Auto-PWE.sh\".${end}"
+        echo -e "${red}[!] Renombre el archivo con el nombre especificado anteriormente, y asegúrese de que se encuentre en el mismo directorio donde se encuentran los otros archivos de configuración.${end}"
+		exit 1
+	fi
+}; update_rutes
 
 function help(){
 	echo -e "${yellow}\n[?] Uso para instalar el entorno de trabajo:${end}"
@@ -50,12 +73,13 @@ function updates_directories_dependencies(){
 	echo -e "${yellow}\n[*] Buscando actualizaciones del sistema...\n${end}"
 	while true; do
 		sudo apt update; comprobacion
-		echo -ne "\n${purple}[?] ¿Ves que falta actualizar el sistema?${end}\n\n\t - [${yellow}1${end}] Si\n\t - [${yellow}2${end}] No\n\t - Opción: "
+		echo -e "\n${purple}[?] ¿Ves que falta actualizar el sistema?${end}"
+        echo -ne "${red}[!] Si ha actualizado el sistema anteriormente y hay menos de 50 paquetes por instalar, puede proseguir tranquilamente con la instalación.${end}\n\n\t - [${yellow}1${end}] Si\n\t - [${yellow}2${end}] No\n\t - Opción: "
 		read option
 		if [[ $option == 1 ]]; then
 			while true;do
 				echo -e "${red}\n[?] Indique cual es la distribución de Linux que está usando:\n${end}"
-				echo -e "${blue}\t - ${end}${yellow}[1]${end}${blue} Kali Linux 2020.4${end}"
+				echo -e "${blue}\t - ${end}${yellow}[1]${end}${blue} Kali Linux${end}"
 				echo -ne "${green}\t - ${end}${yellow}[2]${end}${green} Parrot${end}\n\t - Opción: "
 				read distribution_linux
 				if [ $distribution_linux == 1 ];then
@@ -117,13 +141,13 @@ function bspwm_and_sxhkd(){
 	touch ~/.xinitrc
 	echo -e "sxhkd &\nexec bspwm" > ~/.xinitrc
 	rm ~/.config/bspwm/bspwmrc
-	cd ~/.config/bspwm && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/bspwmrc
+	cp $ruta_actual/bspwmrc ~/.config/bspwm/
 	cat ~/.config/bspwm/bspwmrc | sed "s/username/$(whoami)/g" > ~/.config/bspwm/bspwmrc
 	chmod u+x ~/.config/bspwm/bspwmrc
 	rm ~/.config/sxhkd/sxhkdrc
-	cd ~/.config/sxhkd && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/sxhkdrc
+    cp $ruta_actual/sxhkdrc ~/.config/sxhkd/
 	cat ~/.config/sxhkd/sxhkdrc | sed "s/username/$(whoami)/g" > ~/.config/sxhkd/sxhkdrc
-	cd ~/.config/bspwm/scripts && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/bspwm_resize && chmod +x ~/.config/bspwm/scripts/bspwm_resize
+	cp $ruta_actual/bspwm_resize ~/.config/bspwm/scripts/ && chmod +x ~/.config/bspwm/scripts/bspwm_resize
 }
 
 function compton_and_feh(){
@@ -135,9 +159,9 @@ function compton_and_feh(){
 	mkdir -p ~/Wallpapers
 	echo -e "${yellow}\n[*] Instalando compton y feh...\n${end}"
 	sudo apt install compton feh -y; comprobacion
-	cd ~/Wallpapers/ && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/FondoDePantalla.jpg ; comprobacion
+	cp $ruta_actual/FondoDePantalla.jpg ~/Wallpapers/ ; comprobacion
 	echo -e "${yellow}\n [*] Realizando algunas configuraciones\n${end}"
-	cd ~/.config/compton/ && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/compton.conf ; comprobacion
+	cp $ruta_actual/compton.conf ~/.config/compton/ ; comprobacion
 }
 
 function scripts(){
@@ -146,10 +170,24 @@ function scripts(){
 	# Añadiendo scripts
 	mkdir ~/.config/bin; comprobacion
 	echo -e "${yellow}\n[*] Añadiendo scripts...\n${end}"
-	cd ~/.config/bin
-	wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/hackthebox.sh && chmod +x hackthebox.sh
-	wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/ethernet_status.sh && chmod +x ethernet_status.sh
-	echo -e '#!/bin/bash\n\necho -e "%{F#FF0000} %{F#e2ee6a}$(whoami)%{u-}"' > $(whoami).sh && chmod +x $(whoami).sh
+	#cd ~/.config/bin
+	cp $ruta_actual/hackthebox.sh ~/.config/bin/ && chmod +x ~/.config/bin/hackthebox.sh
+	cp $ruta_actual/ethernet_status.sh ~/.config/bin/ && chmod +x ~/.config/bin/ethernet_status.sh
+	echo -e '#!/bin/bash\n\necho -e "%{F#FF0000} %{F#e2ee6a}$(whoami)%{u-}"' > ~/.config/bin/$(whoami).sh && chmod +x ~/.config/bin/$(whoami).sh
+    #while true; do
+        #echo -e "${purple}[?] ¿Tienes netbook o notebook?${end}\n${red}[!] Esta pregunta es para instalar un módulo sobre la batería${end}"
+        #echo -ne "\t- [${yellow}1${end}] Si\n\t- [${yellow}2${end}] No\n\t- Opción: "
+        #read check_battery
+        #if [ $check_battery == 1 ]; then
+            #cp $ruta_actual/battery.sh ~/.config/bin/
+            #sed -i 's/sep alsa sep/sep battery sep alsa sep/' ~/.config/polybar/config.ini
+            #break
+        #elif [ $check_battery == 2 ]; then
+            #break
+        #else
+            #:
+        #fi
+    #done
 }
 
 function font(){
@@ -170,7 +208,7 @@ function polybar(){
 		clear
 		banner
 		echo -e "\n${purple}[?] Elige la opción a instalar para la polybar:${end}\n\n\t - [${yellow}1${end}] Compilación 1\n\t - [${yellow}2${end}] Compilación 2 (a prueba de errores)\n\t - [${yellow}3${end}] Método estable"
-		echo -e "\n${red}[!] Se recomienda usar las opciones de forma ordenada, es decir, primero el 1, y si nos da un error, probamos con el 2, y si este no funciona, probamos con el 3${end}"
+		echo -e "\n${red}[!] Se recomienda usar las opciones de forma ordenada, es decir, primero el 1, y si nos da un error, probamos con el 2, y si este no funciona, probamos con el 3.${end}"
 		echo -ne "\n\t - Opción: "
 		read opcion_polybar
 		if [ $opcion_polybar == 1 ]; then
@@ -233,7 +271,6 @@ function polybar(){
 		fi
 	done
 	echo -e "\n${cyan}[+] Polybar instalada correctamente..."
-	# FIN TESTING
 	num_theme=0
 	option=0
 	key=0
@@ -249,11 +286,9 @@ function polybar(){
 	banner
 	echo
 	echo -e "\n${yellow}[*] Instalando los temas para la polybar...\n${end}"
-	cd && git clone https://github.com/LevisWings/Auto-PWE/
-	mv Auto-PWE/polybar-themes/ .
-	rm -f -r Auto-PWE
+	cp -r $ruta_actual/polybar-themes/ ~/
 	while true; do
-		echo -ne "\n${purple}[?] Elija el tema a instalar: ${end}"
+		echo -ne "\n${purple}[?] Elija el tema a instalar${end}\n${cyan}[!] Se recomienda el número 11.${end}\n\t- Tema: "
 		read num_theme
 		if (($num_theme >= 1 && $num_theme <= 13)); then
 			rm ~/.config/polybar/launch.sh 2>/dev/null
@@ -275,7 +310,7 @@ function polybar(){
 			~/.config/polybar/launch.sh 2>/dev/null
 			while [ 0 = 0 ]; do
 				echo -e "\n${yellow}[*] Presione las teclas: Windows + Alt + R para actualizar las configuraciones${end}"
-				echo -ne "\n${purple}[?] ¿Estas conforme con el estilo de la polybar?\n\n\t - [${end}${yellow}1${end}${purple}] Si\n\t - [${end}${yellow}2${end}${purple}] No\n\t - Opción: ${end}"
+				echo -ne "\n${purple}[?] ¿Estas conforme con el estilo de la polybar?${end}\n\n\t - [${yellow}1${end}] Si\n\t - [${yellow}2${end}] No\n\t - Opción: "
 				read option
 				if [[ $option == 1 ]]; then
 					echo -e "\n${cyan}[+] Tema instalado con éxito${end}"
@@ -295,19 +330,18 @@ function polybar(){
 	done
 	if [ $num_theme == 11 ];then
 		while true; do
-			echo -ne "${purple}\n[?] ¿Quieres instalar la configuración de s4vitar?${end}\n\n\t${purple} - [${end}${yellow}1${end}${purple}] Si\n\t - [${end}${yellow}2${end}${purple}] No\n\t - Opción: ${end}"
+			echo -ne "${purple}\n[?] ¿Quieres instalar la configuración de s4vitar?${end}\n\n\t - [${yellow}1${end}] Si\n\t - [${yellow}2${end}] No\n\t - Opción: "
 			read option2
 			if [[ $option2 == 1 ]]; then
 				echo -e "\n${yellow}[+] Instalando la configuración de s4vitar${end}"
-				scripts
 				rm -f -r ~/.config/polybar 2>/dev/null
-				cd ~/.config && wget https://github.com/LevisWings/Auto_WE/raw/main/Comprimido.tar
-				tar -xf Comprimido.tar && sleep 1 && rm Comprimido.tar ; comprobacion
+				tar -xf $ruta_actual/Comprimido.tar -C ~/.config/ 
 				rm ~/.config/polybar/launch.sh
 				rm ~/.config/polybar/config.ini
-				cd ~/.config/polybar && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/launch.sh && sleep 1 && chmod +x launch.sh
-				cd ~/.config/polybar/ && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/config.ini
+				cp $ruta_actual/launch.sh ~/.config/polybar/ && sleep 1 && chmod +x ~/.config/polybar/launch.sh
+				cp $ruta_actual/config.ini ~/.config/polybar/
 				cat ~/.config/polybar/config.ini | sed "s/username/$(whoami)/g" > ~/.config/polybar/config.ini
+				scripts
 				sleep 1
 				~/.config/polybar/launch.sh 2>/dev/null ;comprobacion
 				break
@@ -326,9 +360,8 @@ function powerlevel10k_zsh_username(){
 	rm -f ~/.zshrc 2>/dev/null
 	# Instalando powerlevel10k
 	echo -e "${yellow}\n[*] Instalando powerlevel10k para el usuario $(whoami)${end}\n"
-	cd
-	git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ~/powerlevel10k
-	echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+	cd && git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ~/powerlevel10k
+	echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
 	echo -e "${purple}\n[*] A continuación, se procederá a configurar el powerlevel10k para el usuario $(whoami)\n${end}"
 	sleep 5
 	zsh
@@ -347,108 +380,100 @@ function powerlevel10k_zsh_root(){
 
 function powerlevel10k_zsh_username_config(){
 	echo -e "${yellow}\n[*] Realizando algunas configuraciones para el usuario $(whoami)...\n${end}"
-	cat ~/.p10k.zsh | sed "s/status                  # exit/#status                  # exit/" >> ~/.p10k2.zsh; comprobacion
-	cat ~/.p10k2.zsh | sed "s/command_execution_time  # duration/#command_execution_time  # duration/" > ~/.p10k3.zsh
-	cat ~/.p10k3.zsh | sed "s/background_jobs         # presence/#background_jobs         # presence/" > ~/.p10k4.zsh
-	cat ~/.p10k4.zsh | sed "s/direnv                  # direnv/#direnv                  # direnv/" > ~/.p10k5.zsh
-	cat ~/.p10k5.zsh | sed "s/asdf                    # asdf/#asdf                    # asdf/" > ~/.p10k6.zsh
-	cat ~/.p10k6.zsh | sed "s/virtualenv              # python/#virtualenv              # python/" > ~/.p10k7.zsh
-	cat ~/.p10k7.zsh | sed "s/anaconda                # conda/#anaconda                # conda/" > ~/.p10k8.zsh
-	cat ~/.p10k8.zsh | sed "s/pyenv                   # python/#pyenv                   # python/" > ~/.p10k9.zsh
-	cat ~/.p10k9.zsh | sed "s/goenv                   # go/#goenv                   # go/" > ~/.p10k10.zsh
-	cat ~/.p10k10.zsh | sed "s/nodenv                  # node.js/#nodenv                  # node.js/" > ~/.p10k11.zsh
-	cat ~/.p10k11.zsh | sed "s/nvm                     # node.js/#nvm                     # node.js/" > ~/.p10k12.zsh
-	cat ~/.p10k12.zsh | sed "s/nodeenv                 # node.js/#nodeenv                 # node.js/" > ~/.p10k13.zsh
-	cat ~/.p10k13.zsh | sed "s/rbenv                   # ruby/#rbenv                   # ruby/" > ~/.p10k14.zsh
-	cat ~/.p10k14.zsh | sed "s/rvm                     # ruby/#rvm                     # ruby/" > ~/.p10k15.zsh
-	cat ~/.p10k15.zsh | sed "s/fvm                     # flutter/#fvm                     # flutter/" > ~/.p10k16.zsh
-	cat ~/.p10k16.zsh | sed "s/luaenv                  # lua/#luaenv                  # lua/" > ~/.p10k17.zsh
-	cat ~/.p10k17.zsh | sed "s/jenv                    # java/#jenv                    # java/" > ~/.p10k18.zsh
-	cat ~/.p10k18.zsh | sed "s/plenv                   # perl/#plenv                   # perl/" > ~/.p10k19.zsh
-	cat ~/.p10k19.zsh | sed "s/phpenv                  # php/#phpenv                  # php/" > ~/.p10k20.zsh
-	cat ~/.p10k20.zsh | sed "s/scalaenv                # scala/#scalaenv                # scala/" > ~/.p10k21.zsh
-	cat ~/.p10k21.zsh | sed "s/haskell_stack           # haskell/#haskell_stack           # haskell/" > ~/.p10k22.zsh
-	cat ~/.p10k22.zsh | sed "s/kubecontext             # current/#kubecontext             # current/" > ~/.p10k23.zsh
-	cat ~/.p10k23.zsh | sed "s/terraform               # terraform/#terraform               # terraform/" > ~/.p10k24.zsh
-	cat ~/.p10k24.zsh | sed "s/aws                     # aws/#aws                     # aws/" > ~/.p10k25.zsh
-	cat ~/.p10k25.zsh | sed "s/aws_eb_env              # aws/#aws_eb_env              # aws/" > ~/.p10k26.zsh
-	cat ~/.p10k26.zsh | sed "s/azure                   # azure/#azure                   # azure/" > ~/.p10k27.zsh
-	cat ~/.p10k27.zsh | sed "s/gcloud                  # google/#gcloud                  # google/" > ~/.p10k28.zsh
-	cat ~/.p10k28.zsh | sed "s/google_app_cred         # google/#google_app_cred         # google/" > ~/.p10k29.zsh
-	cat ~/.p10k29.zsh | sed "s/context                 # user@hostname/#context                 # user@hostname/" > ~/.p10k30.zsh
-	cat ~/.p10k30.zsh | sed "s/nordvpn                 # nordvpn/#nordvpn                 # nordvpn/" > ~/.p10k31.zsh
-	cat ~/.p10k31.zsh | sed "s/ranger                  # ranger/#ranger                  # ranger/" > ~/.p10k32.zsh
-	cat ~/.p10k32.zsh | sed "s/nnn                     # nnn/#nnn                     # nnn/" > ~/.p10k33.zsh
-	cat ~/.p10k33.zsh | sed "s/vim_shell               # vim/#vim_shell               # vim/" > ~/.p10k34.zsh
-	cat ~/.p10k34.zsh | sed "s/midnight_commander      # midnight/#midnight_commander      # midnight/" > ~/.p10k35.zsh
-	cat ~/.p10k35.zsh | sed "s/nix_shell               # nix/#nix_shell               # nix/" > ~/.p10k36.zsh
-	cat ~/.p10k36.zsh | sed "s/vi_mode                 # vi/#vi_mode                 # vi/" > ~/.p10k37.zsh
-	cat ~/.p10k37.zsh | sed "s/todo                    # todo/#todo                    # todo/" > ~/.p10k38.zsh
-	cat ~/.p10k38.zsh | sed "s/timewarrior             # timewarrior/#timewarrior             # timewarrior/" > ~/.p10k39.zsh
-	cat ~/.p10k39.zsh | sed "s/taskwarrior             # taskwarrior/#taskwarrior             # taskwarrior/" > ~/.p10k40.zsh
-	cat ~/.p10k40.zsh | sed "s/vcs                     # git status/vcs                     # git status\n    status\n    command_execution_time\n    context/" > ~/.p10k41.zsh
-	for (( i=0; i < 41; i++ )); do
-    	rm ~/.p10k$i.zsh 2>/dev/null
-	done
-	mv ~/.p10k41.zsh ~/.p10k.zsh
+    sed -i "s/status                  # exit/#status                  # exit/" ~/.p10k.zsh
+    sed -i "s/command_execution_time  # duration/#command_execution_time  # duration/" ~/.p10k.zsh
+	sed -i "s/background_jobs         # presence/#background_jobs         # presence/" ~/.p10k.zsh
+	sed -i "s/direnv                  # direnv/#direnv                  # direnv/" ~/.p10k.zsh
+	sed -i "s/asdf                    # asdf/#asdf                    # asdf/" ~/.p10k.zsh
+	sed -i "s/virtualenv              # python/#virtualenv              # python/" ~/.p10k.zsh
+	sed -i "s/anaconda                # conda/#anaconda                # conda/" ~/.p10k.zsh
+	sed -i "s/pyenv                   # python/#pyenv                   # python/" ~/.p10k.zsh
+	sed -i "s/goenv                   # go/#goenv                   # go/" ~/.p10k.zsh
+	sed -i "s/nodenv                  # node.js/#nodenv                  # node.js/" ~/.p10k.zsh
+	sed -i "s/nvm                     # node.js/#nvm                     # node.js/" ~/.p10k.zsh
+	sed -i "s/nodeenv                 # node.js/#nodeenv                 # node.js/" ~/.p10k.zsh
+	sed -i "s/rbenv                   # ruby/#rbenv                   # ruby/" ~/.p10k.zsh
+	sed -i "s/rvm                     # ruby/#rvm                     # ruby/" ~/.p10k.zsh
+	sed -i "s/fvm                     # flutter/#fvm                     # flutter/" ~/.p10k.zsh
+	sed -i "s/luaenv                  # lua/#luaenv                  # lua/" ~/.p10k.zsh
+	sed -i "s/jenv                    # java/#jenv                    # java/" ~/.p10k.zsh
+	sed -i "s/plenv                   # perl/#plenv                   # perl/" ~/.p10k.zsh
+	sed -i "s/phpenv                  # php/#phpenv                  # php/" ~/.p10k.zsh
+	sed -i "s/scalaenv                # scala/#scalaenv                # scala/" ~/.p10k.zsh
+	sed -i "s/haskell_stack           # haskell/#haskell_stack           # haskell/" ~/.p10k.zsh
+	sed -i "s/kubecontext             # current/#kubecontext             # current/" ~/.p10k.zsh
+	sed -i "s/terraform               # terraform/#terraform               # terraform/" ~/.p10k.zsh
+	sed -i "s/aws                     # aws/#aws                     # aws/" ~/.p10k.zsh
+	sed -i "s/aws_eb_env              # aws/#aws_eb_env              # aws/" ~/.p10k.zsh
+	sed -i "s/azure                   # azure/#azure                   # azure/" ~/.p10k.zsh
+	sed -i "s/gcloud                  # google/#gcloud                  # google/" ~/.p10k.zsh
+	sed -i "s/google_app_cred         # google/#google_app_cred         # google/" ~/.p10k.zsh
+	sed -i "s/context                 # user@hostname/#context                 # user@hostname/" ~/.p10k.zsh
+	sed -i "s/nordvpn                 # nordvpn/#nordvpn                 # nordvpn/" ~/.p10k.zsh
+	sed -i "s/ranger                  # ranger/#ranger                  # ranger/" ~/.p10k.zsh
+	sed -i "s/nnn                     # nnn/#nnn                     # nnn/" ~/.p10k.zsh
+	sed -i "s/vim_shell               # vim/#vim_shell               # vim/" ~/.p10k.zsh
+	sed -i "s/midnight_commander      # midnight/#midnight_commander      # midnight/" ~/.p10k.zsh
+	sed -i "s/nix_shell               # nix/#nix_shell               # nix/" ~/.p10k.zsh
+	sed -i "s/vi_mode                 # vi/#vi_mode                 # vi/" ~/.p10k.zsh
+	sed -i "s/todo                    # todo/#todo                    # todo/" ~/.p10k.zsh
+	sed -i "s/timewarrior             # timewarrior/#timewarrior             # timewarrior/" ~/.p10k.zsh
+	sed -i "s/taskwarrior             # taskwarrior/#taskwarrior             # taskwarrior/" ~/.p10k.zsh
+	sed -i "s/vcs                     # git status/vcs                     # git status\n    status\n    command_execution_time\n    context/" ~/.p10k.zsh
 }
 
 function powerlevel10k_zsh_root_config(){
 	echo -e "${yellow}\n[*] Realizando algunas configuraciones para el usuario root...\n${end}"
-	sudo cat /root/.p10k.zsh | sudo sed "s/status                  # exit/#status                  # exit/" > /root/.p10k2.zsh
-	sudo cat /root/.p10k2.zsh | sudo sed "s/command_execution_time  # duration/#command_execution_time  # duration/" > /root/.p10k3.zsh
-	sudo cat /root/.p10k3.zsh | sudo sed "s/background_jobs         # presence/#background_jobs         # presence/" > /root/.p10k4.zsh
-	sudo cat /root/.p10k4.zsh | sudo sed "s/direnv                  # direnv/#direnv                  # direnv/" > /root/.p10k5.zsh
-	sudo cat /root/.p10k5.zsh | sudo sed "s/asdf                    # asdf/#asdf                    # asdf/" > /root/.p10k6.zsh
-	sudo cat /root/.p10k6.zsh | sudo sed "s/virtualenv              # python/#virtualenv              # python/" > /root/.p10k7.zsh
-	sudo cat /root/.p10k7.zsh | sudo sed "s/anaconda                # conda/#anaconda                # conda/" > /root/.p10k8.zsh
-	sudo cat /root/.p10k8.zsh | sudo sed "s/pyenv                   # python/#pyenv                   # python/" > /root/.p10k9.zsh
-	sudo cat /root/.p10k9.zsh | sudo sed "s/goenv                   # go/#goenv                   # go/" > /root/.p10k10.zsh
-	sudo cat /root/.p10k10.zsh | sudo sed "s/nodenv                  # node.js/#nodenv                  # node.js/" > /root/.p10k11.zsh
-	sudo cat /root/.p10k11.zsh | sudo sed "s/nvm                     # node.js/#nvm                     # node.js/" > /root/.p10k12.zsh
-	sudo cat /root/.p10k12.zsh | sudo sed "s/nodeenv                 # node.js/#nodeenv                 # node.js/" > /root/.p10k13.zsh
-	sudo cat /root/.p10k13.zsh | sudo sed "s/rbenv                   # ruby/#rbenv                   # ruby/" > /root/.p10k14.zsh
-	sudo cat /root/.p10k14.zsh | sudo sed "s/rvm                     # ruby/#rvm                     # ruby/" > /root/.p10k15.zsh
-	sudo cat /root/.p10k15.zsh | sudo sed "s/fvm                     # flutter/#fvm                     # flutter/" > /root/.p10k16.zsh
-	sudo cat /root/.p10k16.zsh | sudo sed "s/luaenv                  # lua/#luaenv                  # lua/" > /root/.p10k17.zsh
-	sudo cat /root/.p10k17.zsh | sudo sed "s/jenv                    # java/#jenv                    # java/" > /root/.p10k18.zsh
-	sudo cat /root/.p10k18.zsh | sudo sed "s/plenv                   # perl/#plenv                   # perl/" > /root/.p10k19.zsh
-	sudo cat /root/.p10k19.zsh | sudo sed "s/phpenv                  # php/#phpenv                  # php/" > /root/.p10k20.zsh
-	sudo cat /root/.p10k20.zsh | sudo sed "s/scalaenv                # scala/#scalaenv                # scala/" > /root/.p10k21.zsh
-	sudo cat /root/.p10k21.zsh | sudo sed "s/haskell_stack           # haskell/#haskell_stack           # haskell/" > /root/.p10k22.zsh
-	sudo cat /root/.p10k22.zsh | sudo sed "s/kubecontext             # current/#kubecontext             # current/" > /root/.p10k23.zsh
-	sudo cat /root/.p10k23.zsh | sudo sed "s/terraform               # terraform/#terraform               # terraform/" > /root/.p10k24.zsh
-	sudo cat /root/.p10k24.zsh | sudo sed "s/aws                     # aws/#aws                     # aws/" > /root/.p10k25.zsh
-	sudo cat /root/.p10k25.zsh | sudo sed "s/aws_eb_env              # aws/#aws_eb_env              # aws/" > /root/.p10k26.zsh
-	sudo cat /root/.p10k26.zsh | sudo sed "s/azure                   # azure/#azure                   # azure/" > /root/.p10k27.zsh
-	sudo cat /root/.p10k27.zsh | sudo sed "s/gcloud                  # google/#gcloud                  # google/" > /root/.p10k28.zsh
-	sudo cat /root/.p10k28.zsh | sudo sed "s/google_app_cred         # google/#google_app_cred         # google/" > /root/.p10k29.zsh
-	sudo cat /root/.p10k29.zsh | sudo sed "s/context                 # user@hostname/#context                 # user@hostname/" > /root/.p10k30.zsh
-	sudo cat /root/.p10k30.zsh | sudo sed "s/nordvpn                 # nordvpn/#nordvpn                 # nordvpn/" > /root/.p10k31.zsh
-	sudo cat /root/.p10k31.zsh | sudo sed "s/ranger                  # ranger/#ranger                  # ranger/" > /root/.p10k32.zsh
-	sudo cat /root/.p10k32.zsh | sudo sed "s/nnn                     # nnn/#nnn                     # nnn/" > /root/.p10k33.zsh
-	sudo cat /root/.p10k33.zsh | sudo sed "s/vim_shell               # vim/#vim_shell               # vim/" > /root/.p10k34.zsh
-	sudo cat /root/.p10k34.zsh | sudo sed "s/midnight_commander      # midnight/#midnight_commander      # midnight/" > /root/.p10k35.zsh
-	sudo cat /root/.p10k35.zsh | sudo sed "s/nix_shell               # nix/#nix_shell               # nix/" > /root/.p10k36.zsh
-	sudo cat /root/.p10k36.zsh | sudo sed "s/vi_mode                 # vi/#vi_mode                 # vi/" > /root/.p10k37.zsh
-	sudo cat /root/.p10k37.zsh | sudo sed "s/todo                    # todo/#todo                    # todo/" > /root/.p10k38.zsh
-	sudo cat /root/.p10k38.zsh | sudo sed "s/timewarrior             # timewarrior/#timewarrior             # timewarrior/" > /root/.p10k39.zsh
-	sudo cat /root/.p10k39.zsh | sudo sed "s/taskwarrior             # taskwarrior/#taskwarrior             # taskwarrior/" > /root/.p10k40.zsh
-	sudo cat /root/.p10k40.zsh | sudo sed "s/vcs                     # git status/vcs                     # git status\n    status\n    command_execution_time\n    context/" > /root/.p10k41.zsh
-	sudo cat /root/.p10k41.zsh | sudo sed "s/typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='.*'/typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE=''/" > /root/.p10k42.zsh
-	sudo cat /root/.p10k42.zsh | sudo sed "s/typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'/#typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'/" > /root/.p10k43.zsh
-	sudo cat /root/.p10k43.zsh | sudo sed "s/typeset -g POWERLEVEL9K_CONTEXT_PREFIX='.*'/#typeset -g POWERLEVEL9K_CONTEXT_PREFIX='with '/" > /root/.p10k44.zsh
-	for (( i=0; i < 44; i++ )); do
-    	rm /root/.p10k$i.zsh 2>/dev/null
-	done
-	mv /root/.p10k44.zsh /root/.p10k.zsh
+    sudo sed -i "s/status                  # exit/#status                  # exit/" /root/.p10k.zsh
+    sudo sed -i "s/command_execution_time  # duration/#command_execution_time  # duration/" /root/.p10k.zsh
+    sudo sed -i "s/background_jobs         # presence/#background_jobs         # presence/" /root/.p10k.zsh
+    sudo sed -i "s/direnv                  # direnv/#direnv                  # direnv/" /root/.p10k.zsh
+    sudo sed -i "s/asdf                    # asdf/#asdf                    # asdf/" /root/.p10k.zsh
+    sudo sed -i "s/virtualenv              # python/#virtualenv              # python/" /root/.p10k.zsh
+    sudo sed -i "s/anaconda                # conda/#anaconda                # conda/" /root/.p10k.zsh
+    sudo sed -i "s/pyenv                   # python/#pyenv                   # python/" /root/.p10k.zsh
+    sudo sed -i "s/goenv                   # go/#goenv                   # go/" /root/.p10k.zsh
+    sudo sed -i "s/nodenv                  # node.js/#nodenv                  # node.js/" /root/.p10k.zsh
+    sudo sed -i "s/nvm                     # node.js/#nvm                     # node.js/" /root/.p10k.zsh
+    sudo sed -i "s/nodeenv                 # node.js/#nodeenv                 # node.js/" /root/.p10k.zsh
+    sudo sed -i "s/rbenv                   # ruby/#rbenv                   # ruby/" /root/.p10k.zsh
+    sudo sed -i "s/rvm                     # ruby/#rvm                     # ruby/" /root/.p10k.zsh
+    sudo sed -i "s/fvm                     # flutter/#fvm                     # flutter/" /root/.p10k.zsh
+    sudo sed -i "s/luaenv                  # lua/#luaenv                  # lua/" /root/.p10k.zsh
+    sudo sed -i "s/jenv                    # java/#jenv                    # java/" /root/.p10k.zsh
+    sudo sed -i "s/plenv                   # perl/#plenv                   # perl/" /root/.p10k.zsh
+    sudo sed -i "s/phpenv                  # php/#phpenv                  # php/" /root/.p10k.zsh
+    sudo sed -i "s/scalaenv                # scala/#scalaenv                # scala/" /root/.p10k.zsh
+    sudo sed -i "s/haskell_stack           # haskell/#haskell_stack           # haskell/" /root/.p10k.zsh
+    sudo sed -i "s/kubecontext             # current/#kubecontext             # current/" /root/.p10k.zsh
+    sudo sed -i "s/terraform               # terraform/#terraform               # terraform/" /root/.p10k.zsh
+    sudo sed -i "s/aws                     # aws/#aws                     # aws/" /root/.p10k.zsh
+    sudo sed -i "s/aws_eb_env              # aws/#aws_eb_env              # aws/" /root/.p10k.zsh
+    sudo sed -i "s/azure                   # azure/#azure                   # azure/" /root/.p10k.zsh
+    sudo sed -i "s/gcloud                  # google/#gcloud                  # google/" /root/.p10k.zsh
+    sudo sed -i "s/google_app_cred         # google/#google_app_cred         # google/" /root/.p10k.zsh
+    sudo sed -i "s/context                 # user@hostname/#context                 # user@hostname/" /root/.p10k.zsh
+    sudo sed -i "s/nordvpn                 # nordvpn/#nordvpn                 # nordvpn/" /root/.p10k.zsh
+    sudo sed -i "s/ranger                  # ranger/#ranger                  # ranger/" /root/.p10k.zsh
+    sudo sed -i "s/nnn                     # nnn/#nnn                     # nnn/" /root/.p10k.zsh
+    sudo sed -i "s/vim_shell               # vim/#vim_shell               # vim/" /root/.p10k.zsh
+    sudo sed -i "s/midnight_commander      # midnight/#midnight_commander      # midnight/" /root/.p10k.zsh
+    sudo sed -i "s/nix_shell               # nix/#nix_shell               # nix/" /root/.p10k.zsh
+    sudo sed -i "s/vi_mode                 # vi/#vi_mode                 # vi/" /root/.p10k.zsh
+    sudo sed -i "s/todo                    # todo/#todo                    # todo/" /root/.p10k.zsh
+    sudo sed -i "s/timewarrior             # timewarrior/#timewarrior             # timewarrior/" /root/.p10k.zsh
+    sudo sed -i "s/taskwarrior             # taskwarrior/#taskwarrior             # taskwarrior/" /root/.p10k.zsh
+    sudo sed -i "s/vcs                     # git status/vcs                     # git status\n    status\n    command_execution_time\n    context/" /root/.p10k.zsh
+    sudo sed -i "s/typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='.*'/typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE=''/" /root/.p10k.zsh
+    sudo sed -i "s/typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='.*'/#typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'/" /root/.p10k.zsh
+    sudo sed -i "s/typeset -g POWERLEVEL9K_CONTEXT_PREFIX='.*'/#typeset -g POWERLEVEL9K_CONTEXT_PREFIX='with '/" /root/.p10k.zsh
 	echo -e "${yellow}\n[*] Ajustando algunas configuraciones...\n${end}"
+    # Eliminando existencias
 	sudo rm /root/.zshrc
 	sudo rm /home/$username/.zshrc
-	cd /home/$username && wget https://raw.githubusercontent.com/LevisWings/Auto_WE/main/zshrc_config
-	cat /home/$username/zshrc_config | sed "s/user_name/$username/" > /home/$username/.zshrc
+    cp $ruta_actual/zshrc_config /home/$username/
+	sed -i "s/user_name/$username/" /home/$username/zshrc_config && mv /home/$username/zshrc_config /home/$username/.zshrc
 	sudo chown $username:$username /home/$username/.zshrc 
-	rm /home/$username/zshrc_config
 	sudo ln -s -f /home/$username/.zshrc /root/.zshrc
 	sudo usermod --shell /usr/bin/zsh $username 2>/dev/null
 	sudo usermod --shell /usr/bin/zsh root 2>/dev/null
@@ -464,7 +489,7 @@ function plugins(){
 	echo -e "${yellow}[*] Instalando plugins...\n${end}"
 	sudo apt install zsh-syntax-highlighting zsh-autosuggestions -y
 	cd /usr/share && sudo mkdir zsh-sudo && cd zsh-sudo && sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
-	chmod +x sudo.plugin.zsh
+	chmod +x /usr/share/zsh-sudo/sudo.plugin.zsh
 	cd /usr/share && sudo chown $username:$username -R zsh-*
 }
 
@@ -514,6 +539,7 @@ if [ $# -eq 1 ]; then
 			sleep 10
 			kill -9 -1
 		else
+            clear
 			banner
 			echo
 			echo -e "${red}\n[!] Ejecutar este paso como un usuario normal...\n${end}"
@@ -532,6 +558,7 @@ if [ $# -eq 1 ]; then
 			echo
 			powerlevel10k_zsh_username
 		else
+            clear
 			banner
 			echo
 			echo -e "${red}\n[!] Ejecutar este paso como un usuario normal...\n${end}"
@@ -549,6 +576,7 @@ if [ $# -eq 1 ]; then
 			echo
 			fzf_username
 		else
+            clear
 			banner
 			echo
 			echo -e "${red}\n[!] Ejecutar este paso como un usuario normal...\n${end}"
@@ -561,6 +589,7 @@ if [ $# -eq 1 ]; then
 			echo
 			powerlevel10k_zsh_root
 		else
+            clear
 			banner
 			echo
 			echo -e "${red}\n[!] Ejecutar este paso como root...\n${end}"
@@ -609,10 +638,13 @@ if [ $# -eq 1 ]; then
 				exit 1
 			fi
 		else
+            clear
+            banner
 			echo -e "${red}\n[!] Ejecutar este paso como root...\n${end}"
 			echo -e "\n\t - ${cyan}sudo ./Auto-PWE.sh 5\n${end}"
 		fi
 	else
+        clear
 		banner
 		echo -e "${red}\n[!] Número incorrecto\n${end}"
 		help
