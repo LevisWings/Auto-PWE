@@ -9,17 +9,13 @@ Auto-PWE (Auto Professional Work Environment) es un script en bash que te permit
 git clone https://github.com/LevisWings/Auto-PWE
 cd Auto-PWE
 ```
-**2)** Asignamos permisos de ejecución:
-```
-chmod +x Auto-PWE.sh
-```
-**3)** Ejecutamos y veremos los comandos a ejecutar:
+**2)** Ejecutamos y veremos los comandos a ejecutar:
 ```
 ./Auto-PWE.sh
 ```
-**4)** Se deberá ejecutar todos los 5 pasos de manera ordenada.
+**3)** Se deberá ejecutar todos los 5 pasos de manera ordenada.
 
-**5)** Disfruta.
+**4)** Disfruta.
 ## Vista general
 [![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")
 [![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/Overview.png?raw=true "Overview")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/Overview.png?raw=true "Overview")
