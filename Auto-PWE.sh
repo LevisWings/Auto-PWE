@@ -459,22 +459,22 @@ function powerlevel10k_zsh_root_config(){
     sudo sed -i "s/typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='.*'/typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE=''/" /root/.p10k.zsh
     sudo sed -i "s/typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='.*'/#typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'/" /root/.p10k.zsh
     sudo sed -i "s/typeset -g POWERLEVEL9K_CONTEXT_PREFIX='.*'/#typeset -g POWERLEVEL9K_CONTEXT_PREFIX='with '/" /root/.p10k.zsh
-	echo -e "${yellow}\n[*] Ajustando algunas configuraciones...\n${end}"
+    echo -e "${yellow}\n[*] Ajustando algunas configuraciones...\n${end}"
     # Eliminando existencias
-	sudo rm /root/.zshrc
-	sudo rm /home/$username/.zshrc
+    sudo rm /root/.zshrc
+    sudo rm /home/$username/.zshrc
     cp $ruta_actual/zshrc_config /home/$username/
-	sed -i "s/user_name/$username/" /home/$username/zshrc_config && mv /home/$username/zshrc_config /home/$username/.zshrc
-	sudo chown $username:$username /home/$username/.zshrc 
-	sudo ln -s -f /home/$username/.zshrc /root/.zshrc
-	sudo usermod --shell /usr/bin/zsh $username 2>/dev/null
-	sudo usermod --shell /usr/bin/zsh root 2>/dev/null
-	echo -e "\n${yellow}[*] Instalando lsd...${end}\n"
-	cd /opt && sudo wget https://github.com/Peltoche/lsd/releases/download/0.18.0/lsd_0.18.0_amd64.deb
-	sudo dpkg -i lsd_0.18.0_amd64.deb && sleep 1 && sudo rm lsd_0.18.0_amd64.deb
-	echo -e "\n${yellow}[*] Instalando bat...${end}\n"
-	sudo wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
-	sudo dpkg -i bat_0.17.1_amd64.deb && sleep 1 && sudo rm bat_0.17.1_amd64.deb
+    sed -i "s/user_name/$username/" /home/$username/zshrc_config && mv /home/$username/zshrc_config /home/$username/.zshrc
+    sudo chown $username:$username /home/$username/.zshrc 
+    sudo ln -s -f /home/$username/.zshrc /root/.zshrc
+    sudo usermod --shell /usr/bin/zsh $username 2>/dev/null
+    sudo usermod --shell /usr/bin/zsh root 2>/dev/null
+    echo -e "\n${yellow}[*] Instalando lsd...${end}\n"
+    cd /opt && sudo wget https://github.com/Peltoche/lsd/releases/download/0.18.0/lsd_0.18.0_amd64.deb
+    sudo dpkg -i lsd_0.18.0_amd64.deb && sleep 1 && sudo rm lsd_0.18.0_amd64.deb
+    echo -e "\n${yellow}[*] Instalando bat...${end}\n"
+    sudo wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
+    sudo dpkg -i bat_0.17.1_amd64.deb && sleep 1 && sudo rm bat_0.17.1_amd64.deb
 }
 
 function plugins(){
