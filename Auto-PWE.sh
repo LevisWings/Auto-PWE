@@ -34,7 +34,9 @@ function help(){
 	echo -e "\t- ${yellow}./Auto-PWE.sh 3${end} -> Para ajustar configuraciones del .p10k.zsh e instalar el fzf para el usuario..."
 	echo -e "\t- ${yellow}sudo ./Auto-PWE.sh 4${end} -> Para instalar powerlevel10k para el usuario root..."
 	echo -e "\t- ${yellow}sudo ./Auto-PWE.sh 5${end} -> Para ajustar configuraciones, instalar plugins y el fzf para root..."
-	echo -e "${cyan}[?] Puede agregar el parámetro \"${yellow}-g${end}${cyan}\" o \"${end}${yellow}--guide${end}${cyan}\" para observar los comandos y algunas explicaciones que ocurren en cada paso (en desarrollo).${end}"
+	echo -e "${cyan}[?] Puede usar el modo \"guiado\" para observar los comandos y algunas explicaciones que ocurren en cada paso (en desarrollo). Ejemplo con el paso 1:${end}"
+	echo -e "\t- ${yellow}./Auto-PWE.sh 1 -g${end}"
+	echo -e "\t- ${yellow}./Auto-PWE.sh 1 --guide${end}"
 	echo -e "${red}\n[!] Ejecutar todos los 5 pasos de manera ordenada.${end}"
 	echo
 	exit 1
