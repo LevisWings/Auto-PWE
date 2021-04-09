@@ -1,0 +1,110 @@
+# Words
+Si
+No
+- Opción:
+[*] Comando:
+[*] Referencia:
+[?] Usted a elegido
+[*] Ingrese el número [
+] para confirmar (o cualquier caractér para cancelar):
+[!] Ingrese el número [
+] para continuar:
+
+# Function help()
+[?] Uso para instalar el entorno de trabajo:
+ -> Para actualizar el sistema, instalar utilidades y fuentes necesarias...
+ -> Para seleccionar el tema de la polybar y el powerlevel10k...
+ -> Para ajustar configuraciones del .p10k.zsh e instalar el fzf para el usuario...
+ -> Para instalar powerlevel10k para el usuario root...
+ -> Para ajustar configuraciones, instalar plugins y el fzf para root...
+[?] Puede usar el script "Guided-Auto-PWE.sh" para observar los comandos y algunas explicaciones que ocurren en cada paso (en desarrollo).
+[!] Ejecutar todos los 5 pasos de manera ordenada.
+
+# Function check()
+[+] Acción realizada con éxito
+[!] Ocurrió un error
+
+# Function press_key()
+[.] Presiona la tecla Enter para continuar...
+
+# Function updates_and_dependecies()
+[*] Buscando actualizaciones del sistema...
+[?] ¿Ves que falta actualizar el sistema?
+[!] Si ha actualizado el sistema anteriormente y hay menos de 50 paquetes por instalar, puede proseguir tranquilamente con la instalación.
+[?] Indique cuál es la distribución de Linux que está usando:
+[*] Actualizando el sistema Kali Linux...
+[*] Actualizando el sistema Parrot...
+[!] Opción incorrecta. Realizando nuevamente la comprobación de las actualizaciones...
+[*] Instalando dependencias...
+
+# Function bspwm_and_sxhkd()
+[*] Instalando bspwm y otros programas...
+
+# Function compton_and_feh()
+[*] Instalando compton y feh...
+[*] Realizando algunas configuraciones...
+
+# Function scripts()
+[*] Añadiendo scripts...
+
+# Function font()
+[*] Instalando la fuente Hack Nerd Font...
+
+# Function polybar()
+[?] Elige la opción a instalar para la polybar:
+Compilación
+Repositorio
+[!] Se recomienda usar primero el 1, y si nos da un error, probamos con el 2.
+[*] Instalando polybar...
+[+] Polybar instalada correctamente...
+[*] Configure en su terminal la fuente o tipografía llamada:
+[!] En Kali Linux: Editar -> Preferencias -> Click en "Tipografía personalizada" -> Seleccionamos la fuente
+[!] En Parrot: Editar -> Preferencias de perfil -> Desmarcar la casilla "Usar la tipografia de ancho fijo del sistema" -> Seleccionamos la fuente
+[!] También puede cambiar el tamaño de la letra según sus preferencias
+[*] Instalando los temas para la polybar...
+[?] Elija el tema a instalar
+[!] Se recomienda el número 11.
+[*] Tema:
+[*] Presione las teclas: Windows + Alt + R para actualizar las configuraciones
+[?] ¿Estás conforme con el estilo de la polybar?
+[+] Tema instalado con éxito
+[!] Insertar un número del 1 al 13!
+[?] ¿Quieres instalar la configuración de s4vitar?
+[+] Instalando la configuración de s4vitar
+
+# Functions powerlevel10k_zsh_username() and powerlevel10k_zsh_root()
+[*] Instalando powerlevel10k para el usuario
+[*] A continuación, se procederá a configurar el powerlevel10k para el usuario
+
+# Functions powerlevel10k_zsh_username_config() and powerlevel10k_zsh_root_config()
+[*] Realizando algunas configuraciones para el usuario
+[*] Ajustando algunas configuraciones...
+[*] Estableciendo un enlace simbólico para el archivo .zshrc
+[*] Estableciendo zsh como shell predeterminada para ambos usuarios
+[*] Instalando lsd...
+[*] Instalando bat...
+
+# Function plugins()
+[*] Instalando plugins...
+
+# Function fzf_username() and fzf_root()
+[*] Instalando fzf para el usuario
+
+# Main
+[+] Actualizaciones, dependencias, programas y utilidades instaladas exitosamente. Se procederá a reiniciar la sesión...
+[!] Logearse indicando bspwm y ejecutar el script nuevamente para el paso 2...
+[*] Reiniciando sesión...
+[!] Ejecutar este paso como un usuario normal...
+# Para el modo guía.
+[!] Ejecutar este paso como root...
+[*] Ingrese su nombre de usuario (no root):
+[?] Usted ha introducido al siguiente usuario:
+[+] Powerlevel10k, plugins, zsh y fzf instalada y configurada correctamente
+[!] Se procederá a reiniciar el equipo para aplicar todos los cambios
+[!] El usuario
+no existe
+[!] Número incorrecto!
+[!] Cantidad de parámetro incorrectos...
+
+# Others
+[?] Puede usar el script "Auto-PWE.sh" si no quiere observar los comandos y algunas explicaciones que ocurren en cada paso.

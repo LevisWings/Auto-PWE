@@ -29,12 +29,12 @@ info_path=$current_path/info
 
 function help(){
 	echo -e "${cyan}\n$(cat $info_path/$info_lang | awk 'NR==14')${end}"
-	echo -e "\n\t- ${yellow}./Auto-PWE.sh 1${end} $(cat $info_path/$info_lang | awk 'NR==15')"
-	echo -e "\t- ${yellow}./Auto-PWE.sh 2${end} $(cat $info_path/$info_lang | awk 'NR==16')"
-	echo -e "\t- ${yellow}./Auto-PWE.sh 3${end} $(cat $info_path/$info_lang | awk 'NR==17')"
-	echo -e "\t- ${yellow}sudo ./Auto-PWE.sh 4${end} $(cat $info_path/$info_lang | awk 'NR==18')"
-	echo -e "\t- ${yellow}sudo ./Auto-PWE.sh 5${end} $(cat $info_path/$info_lang | awk 'NR==19')"
-	echo -e "${cyan}\n$(cat $info_path/$info_lang | awk 'NR==20')${end}"
+	echo -e "\n\t- ${yellow}./Guided-Auto-PWE.sh 1${end} $(cat $info_path/$info_lang | awk 'NR==15')"
+	echo -e "\t- ${yellow}./Guided-Auto-PWE.sh 2${end} $(cat $info_path/$info_lang | awk 'NR==16')"
+	echo -e "\t- ${yellow}./Guided-Auto-PWE.sh 3${end} $(cat $info_path/$info_lang | awk 'NR==17')"
+	echo -e "\t- ${yellow}sudo ./Guided-Auto-PWE.sh 4${end} $(cat $info_path/$info_lang | awk 'NR==18')"
+	echo -e "\t- ${yellow}sudo ./Guided-Auto-PWE.sh 5${end} $(cat $info_path/$info_lang | awk 'NR==19')"
+	echo -e "${cyan}\n$(cat $info_path/$info_lang | awk 'NR==110')${end}"
 	echo -e "${red}\n$(cat $info_path/$info_lang | awk 'NR==21')${end}"
 	echo; exit 1
 }
@@ -72,6 +72,7 @@ function updates_and_dependencies(){
 					read confirm_kali
 					if [ $confirm_kali == 1 ]; then
 						echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==35')\n${end}"
+						echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}sudo apt upgrade${end}"; press_key
 						sudo apt upgrade -y; check
 						break
 					else
@@ -82,6 +83,7 @@ function updates_and_dependencies(){
 					read confirm_parrot
 					if [ $confirm_parrot == 1 ]; then
 						echo -e "${yellow}\n\$(cat $info_path/$info_lang | awk 'NR==36')n${end}"
+						echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2')${end}${yellow}sudo parrot-upgrade${end}"; press_key
 						sudo parrot-upgrade -y; check
 						break
 					else
@@ -99,8 +101,19 @@ function updates_and_dependencies(){
 	done
 	clear && banner && echo
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==38')\n${end}"
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==7')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==8')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==9')${end}"; press_key
 	sudo apt-get install libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev -y; check
+	clear && banner && echo
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==12')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==13')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==14')${end}"; press_key
 	sudo apt install build-essential git cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev -y; check
+	clear && banner && echo
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==17')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==18')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==19')${end}"; press_key
 	sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev -y; check
 	sudo apt purge redshift redshift-gtk -y > /dev/null 2>&1 # Eliminar problema de redshift
 }
@@ -115,8 +128,15 @@ function bspwm_and_sxhkd(){
 	sudo rm -f /usr/local/share/doc/bspwm/examples/sxhkdrc 2>/dev/null
 	rm -f ~/.xinitrc 2>/dev/null
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==41')\n${end}"
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==22')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==23')"; press_key
 	sudo apt install bspwm rofi gnome-terminal dunst scrub xclip -y
 	# Instalación de bspwm y sxhkd
+	echo && echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==26')${end}"
+	for i in $(seq 27 30); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==31')${end}"; press_key
 	cd && git clone https://github.com/baskerville/bspwm.git
 	git clone https://github.com/baskerville/sxhkd.git
 	cd bspwm && make && sudo make install
@@ -124,6 +144,11 @@ function bspwm_and_sxhkd(){
 	# Configuracion y ejecución de bspwm
 	#cd && cp /usr/local/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/
 	#cp /usr/local/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/
+	echo && echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==32')${end}"
+	for i in $(seq 33 38); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==39')${end}"; press_key
 	mkdir -p ~/.config/{bspwm,sxhkd}
 	mkdir ~/.config/bspwm/scripts
 	rm ~/.config/bspwm/bspwmrc 2>/dev/null
@@ -134,6 +159,10 @@ function bspwm_and_sxhkd(){
 	cp $current_path/sxhkdrc ~/.config/sxhkd/
 	cat ~/.config/sxhkd/sxhkdrc | sed "s/username/$(whoami)/g" > ~/.config/sxhkd/sxhkdrc
 	cp $current_path/bspwm_resize ~/.config/bspwm/scripts/ && chmod +x ~/.config/bspwm/scripts/bspwm_resize
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==40')${end}"
+	for i in $(seq 41 42); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done; press_key
 	touch ~/.xinitrc
 	echo -e "sxhkd &\nexec bspwm" > ~/.xinitrc
 }
@@ -145,6 +174,8 @@ function compton_and_feh(){
 	mkdir ~/.config/compton
 	mkdir -p ~/Wallpapers 2>/dev/null
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==44')\n${end}"
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==45')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==46')${end}"; press_key
 	sudo apt install compton feh -y; check
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==45')\n${end}"
 	cp $current_path/FondoDePantalla.jpg ~/Wallpapers/ ; check
@@ -179,6 +210,9 @@ function scripts(){
 
 function font(){
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==51')${end}"
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==49')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==50')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==51')${end}"; press_key
 	cd /usr/local/share/fonts && sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip && sudo unzip Hack.zip
 	sudo rm Hack.zip
 	sleep 1
@@ -203,9 +237,17 @@ function polybar(){
 			echo -e "\n${yellow}$(cat $info_path/$info_lang | awk 'NR==58')\n${end}"
 			cd /opt
 			sudo rm -f /opt/polybar-3.4.3.tar 2>/dev/null # Eliminar existencia
+			echo && echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==54')${end}"
+			echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==55')${end}"
+			echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==56')${end}"; press_key
 			sudo wget https://github.com/polybar/polybar/releases/download/3.4.3/polybar-3.4.3.tar; check
 			sudo tar -xf polybar-3.4.3.tar; check
 			sudo rm -f /opt/polybar-3.4.3.tar
+			echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==57')${end}"
+			for i in $(seq 58 61); do
+				echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+			done
+			echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==62')${end}"; press_key
 			cd /opt/polybar && sudo mkdir build && cd build
 			sudo cmake .. ; check
 			sudo make -j$(nproc); check
@@ -215,6 +257,7 @@ function polybar(){
 			# Eliminar existencia
 			sudo rm -f -r /opt/polybar/ 2>/dev/null
 			echo -e "\n${yellow}$(cat $info_path/$info_lang | awk 'NR==58')\n${end}"
+			echo -e "${cyan}$(cat $info_path/$guide_lang | awk 'NR==2')${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==63')${end}"; press_key
 			sudo apt install polybar -y; check
 			break
 		else
@@ -241,6 +284,11 @@ function polybar(){
 		echo -ne "\n${purple}$(cat $info_path/$info_lang | awk 'NR==65')${end}\n${cyan}$(cat $info_path/$info_lang | awk 'NR==66')${end}\n\t$(cat $info_path/$info_lang | awk 'NR==67') "
 		read num_theme
 		if (($num_theme >= 1 && $num_theme <= 13)); then
+			echo && echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==66')${end}"
+			for i in $(seq 67 74); do
+				echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+			done
+			echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==4') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==75')${end}"; press_key
 			rm ~/.config/polybar/launch.sh 2>/dev/null
 			cd ~/polybar-themes/polybar-$num_theme
 			mkdir -p ~/.local/share/fonts
@@ -301,18 +349,31 @@ function powerlevel10k_zsh_username(){
 	rm -f ~/.zshrc 2>/dev/null
 	# Instalando powerlevel10k
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==76') $(whoami)${end}\n"
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==78')${end}"
+	for i in $(seq 79 80); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==81')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==82') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==83')${end}"; press_key
 	cd && git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ~/powerlevel10k; check
-	echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc ; check
+	echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc; check
 	echo -e "${purple}\n$(cat $info_path/$info_lang | awk 'NR==77') $(whoami)\n${end}"
 	sleep 5
 	zsh
 }
+
 function powerlevel10k_zsh_root(){
 	# Eliminar existencias
 	sudo rm -f -r /root/powerlevel10k 2>/dev/null
 	sudo rm -f /root/.zshrc 2>/dev/null
 	# Instalando powerlevel10k
 	sudo echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==76') root${end}\n"
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==86')${end}"
+	for i in $(seq 87 88); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==89')${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==137') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==138')${end}"; press_key
 	sudo git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git /root/powerlevel10k; check
 	sudo echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> /root/.zshrc; check
 	echo -e "${purple}\n$(cat $info_path/$info_lang | awk 'NR==77') root\n${end}"
@@ -322,6 +383,7 @@ function powerlevel10k_zsh_root(){
 
 function powerlevel10k_zsh_username_config(){
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==80') $(whoami)...\n${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==4') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==92')${end}"; press_key
 	sed -i "s/status                  # exit/#status                  # exit/" ~/.p10k.zsh
 	sed -i "s/command_execution_time  # duration/#command_execution_time  # duration/" ~/.p10k.zsh
 	sed -i "s/background_jobs         # presence/#background_jobs         # presence/" ~/.p10k.zsh
@@ -366,6 +428,7 @@ function powerlevel10k_zsh_username_config(){
 
 function powerlevel10k_zsh_root_config(){
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==80') $(whoami)\n${end}"
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==4') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==95')${end}"; press_key
 	sudo sed -i "s/status                  # exit/#status                  # exit/" /root/.p10k.zsh
 	sudo sed -i "s/command_execution_time  # duration/#command_execution_time  # duration/" /root/.p10k.zsh
 	sudo sed -i "s/background_jobs         # presence/#background_jobs         # presence/" /root/.p10k.zsh
@@ -417,20 +480,43 @@ function powerlevel10k_zsh_root_config(){
 	cp $current_path/zshrc_config /home/$username/
 	sed -i "s/user_name/$username/" /home/$username/zshrc_config && mv /home/$username/zshrc_config /home/$username/.zshrc
 	sudo chown $username:$username /home/$username/.zshrc
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==98')${end}"; press_key
 	sudo ln -s -f /home/$username/.zshrc /root/.zshrc
 	echo -e "\n${cyan}$(cat $info_path/$info_lang | awk 'NR==83')${end}\n"
+	for i in $(seq 101 102); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done; press_key
 	sudo usermod --shell /usr/bin/zsh $username 2>/dev/null
 	sudo usermod --shell /usr/bin/zsh root 2>/dev/null
 	echo -e "\n${yellow}$(cat $info_path/$info_lang | awk 'NR==84')${end}\n"
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==105')${end}"
+	for i in $(seq 106 107); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==108') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==109')${end}"; press_key
 	cd /opt && sudo wget https://github.com/Peltoche/lsd/releases/download/0.18.0/lsd_0.18.0_amd64.deb
 	sudo dpkg -i lsd_0.18.0_amd64.deb && sleep 1 && sudo rm lsd_0.18.0_amd64.deb
 	echo -e "\n${yellow}$(cat $info_path/$info_lang | awk 'NR==85')${end}\n"
+	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==112')${end}"
+	for i in $(seq 113 114); do
+    	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done
+	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==108') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==115')${end}"; press_key
 	sudo wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
 	sudo dpkg -i bat_0.17.1_amd64.deb && sleep 1 && sudo rm bat_0.17.1_amd64.deb
 }
 
 function plugins(){
 	echo -e "${yellow}$(cat $info_path/$info_lang | awk 'NR==88')\n${end}"
+	for i in $(seq 118 120); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done
+	for i in $(seq 121 124); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done
+	for i in $(seq 125 126); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==108') ${end}${purple}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done; press_key
 	sudo apt install zsh-syntax-highlighting zsh-autosuggestions -y
 	cd /usr/share && sudo mkdir zsh-sudo && cd zsh-sudo && sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
 	chmod +x /usr/share/zsh-sudo/sudo.plugin.zsh
@@ -440,6 +526,9 @@ function plugins(){
 function fzf_username(){
 	sudo rm -f -r /home/$username/.fzf 2>/dev/null # Eliminar existencia
 	echo -e "${yellow}$(cat $info_path/$info_lang | awk 'NR==91') $(whoami)...\n${end}"
+	for i in $(seq 129 130); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done; press_key
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install
 }
@@ -447,6 +536,9 @@ function fzf_username(){
 function fzf_root(){
 	sudo rm -f -r /root/.fzf 2>/dev/null # Eliminar existencia
 	echo -e "${yellow}$(cat $info_path/$info_lang | awk 'NR==91') $(whoami)...\n${end}"
+	for i in $(seq 133 134); do
+		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
+	done; press_key
 	sudo git clone --depth 1 https://github.com/junegunn/fzf.git /root/.fzf
 	/root/.fzf/install
 }
@@ -461,8 +553,10 @@ function select_language(){
 		read lang
 		case $lang in
 			1) info_lang="info_es.txt"
+			guide_lang="guide_mode_es.txt"
 			break;;
 			2) info_lang="info_en.txt"
+			guide_lang="guide_mode_en.txt"
 			break;;
 			*) echo -e "${red}\n[-] Wrong number / Número incorrecto${end}"
 			exit 1;;

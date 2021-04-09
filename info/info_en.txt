@@ -1,0 +1,110 @@
+# Words
+Yes
+No
+- Option:
+[*] Command:
+[*] Reference:
+[?] You have chosen
+[*] Enter the number [
+] to confirm (or any character to cancel):
+[!] Enter the number [
+] to continue:
+
+# Function help()
+[?] Use to install the working environment:
+ -> To update the system, install necessary utilities and fonts....
+ -> To select the polybar theme and the powerlevel10k...
+ -> To adjust .p10k.zsh settings and install the fzf for the user...
+ -> To install powerlevel10k for root user...
+ -> To adjust settings, install plugins and install the fzf for root...
+[?] You can use the script "Guided-Auto-PWE.sh" to observe the commands and some explanations that occur at each step (under development).
+[!] Execute all 5 steps in an orderly fashion.
+
+# Function check()
+[+] Successful action
+[!] An error occurred
+
+# Function press_key()
+[.] Press the Enter key to continue...
+
+# Function updates_and_dependecies()
+[*] Checking for system updates...
+[?] Do you see that the system needs to be updated?
+[!] If you have upgraded the system before and there are less than 50 packages to install, you can proceed with the installation.
+[?] Please indicate which Linux distribution you are using:
+[*] Upgrading the Kali Linux system...
+[*] Upgrading the Parrot system...
+[!] Wrong option. Performing the update check again.
+[*] Installing dependencies...
+
+# Function bspwm_and_sxhkd()
+[*] Installing bspwm and other programs...
+
+# Function compton_and_feh()
+[*] Installing compton and feh...
+[*] Performing some configurations...
+
+# Function scripts()
+[*] Adding scripts...
+
+# Function font()
+[*] Installing Hack Nerd Font...
+
+# Function polybar()
+[?] Choose the option to install for the polybar:
+Compiling
+Repository
+[!] It is recommended to use first the 1, and if it gives us an error, try with the 2.
+[*] Installing polybar...
+[+] Polybar installed correctly...
+[*] Configure in your terminal the font or typography called:
+[!] In Kali Linux: Edit -> Preferences -> Click on "Custom Typography" -> Select the font.
+[!] In Parrot: Edit -> Profile Preferences -> Uncheck the box "Use system fixed width font" -> Select the font
+[!] You can also change the font size according to your preferences.
+[*] Installing the polybar themes...
+[?] Choose the theme to install
+[!] We recommend the number 11.
+[*] Theme:
+[*] Press the keys: Windows + Alt + R to update the settings.
+[?] Are you satisfied with the polybar style?
+[+] Theme installed successfully
+Insert a number from 1 to 13!
+[?] Do you want to install the s4vitar configuration?
+[+] Installing the s4vitar configuration
+
+# Functions powerlevel10k_zsh_username() and powerlevel10k_zsh_root()
+[*] Installing powerlevel10k for the user
+[*] Next, we will proceed to configure the powerlevel10k for user
+
+# Functions powerlevel10k_zsh_username_config() and powerlevel10k_zsh_root_config()
+[*] Performing some configurations for the user.
+[*] Adjusting some configurations...
+[*] Setting up a symbolic link for the .zshrc file
+[*] Setting zsh as the default shell for both users
+[*] Installing lsd...
+[*] Installing bat...
+
+# Function plugins()
+[*] Installing plugins...
+
+# Function fzf_username() and fzf_root()
+[*] Installing fzf for the user
+
+# Main
+[+] Updates, dependencies, programs and utilities installed successfully. We will proceed to restart the session...
+[!] Login with bspwm and run the script again for step 2...
+[*] Restarting session...
+[!] Execute this step as a normal user...
+# For guide mode...
+[!] Execute this step as root...
+[*] Enter your username (not root):
+[?] You have entered the following user:
+[+] Powerlevel10k, plugins, zsh and fzf installed and configured correctly.
+[!] You will proceed to reboot your computer to apply all changes.
+[!] The user
+does not exist
+[!] Incorrect number!
+[!] Incorrect number of parameters...
+
+# Others
+[?] You can use the "Auto-PWE.sh" script if you don't want to watch the commands and some explanations that occur at each step.

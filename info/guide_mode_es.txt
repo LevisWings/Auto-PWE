@@ -1,0 +1,139 @@
+# Words
+[*] Comando:
+[*] Referencia:
+[*] Video de demostración:
+
+# bspwm dependecies
+[*] Instalando dependencias para bspwm:
+sudo apt-get install libxcb-xinerama0-dev libxcb-icccm4-dev libxcb-randr0-dev libxcb-util0-dev libxcb-ewmh-dev libxcb-keysyms1-dev libxcb-shape0-dev
+https://github.com/baskerville/bspwm/wiki#dependencies
+
+# polybar dependecies
+[*] Instalando dependencias esenciales para la polybar:
+sudo apt install build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev
+https://github.com/polybar/polybar/wiki/Compiling#dependencies-1
+
+# polybar optional dependecies
+[*] Instalando dependencias opcionales para la polybar:
+sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
+https://github.com/polybar/polybar/wiki/Compiling#optional-dependencies
+
+# programs
+[*] Instalando los siguientes programas esenciales con apt:\n\t[*] bspwm: Tiling Window Manager (administrador de ventanas en mosaico).\n\t[*] rofi: Selector de ventana y lanzador de aplicaciones.\n\t[*] gnome-terminal: Un emulador de terminal (se puede cambiar sin problemas)\n\t[*] dunst: Dunst es un reemplazo ligero para los "demonios" de notificación que proporcionan la mayoría de los entornos de escritorio.\n\t[*] scrub: Escribe patrones en disco/archivo. Ideal para borrar archivos y evitar ser recuperado.\n\t[*] xclip: Interfaz de línea de comandos para selecciones X (portapapeles) 
+sudo apt install bspwm rofi gnome-terminal dunst scrub xclip -y
+
+# bspwm and sxhkd
+[*] Comandos para construir e instalar bspwm y sxhkd desde GitHub:
+cd && git clone https://github.com/baskerville/bspwm.git
+git clone https://github.com/baskerville/sxhkd.git
+cd bspwm && make && sudo make install
+cd ../sxhkd && make && sudo make install
+https://github.com/baskerville/bspwm/wiki#building-and-installing
+[*] Comandos para la ejecución de bspwm (creamos directorios en el directorio ~/.config para pegar los archivos de configuración):
+mkdir -p ~/.config/{bspwm,sxhkd}
+mkdir ~/.config/bspwm/scripts
+cp $current_path/bspwmrc ~/.config/bspwm/
+chmod u+x ~/.config/bspwm/bspwmrc
+cp $current_path/sxhkdrc ~/.config/sxhkd/
+cp $current_path/bspwm_resize ~/.config/bspwm/scripts/ && chmod +x ~/.config/bspwm/scripts/bspwm_resize
+https://github.com/baskerville/bspwm/wiki#running-bspwm
+[*] Creamos un archivo ~/.xinitrc para lanzar bspwm y sxhkd al iniciar sesión
+touch ~/.xinitrc
+echo -e "sxhkd &\\nexec bspwm" > ~/.xinitrc
+
+# feh and compton
+[*] Instalar compton y feh con apt:\n\t[*] compton: Para tener transparencias, como en la terminal.\n\t[*] feh: Visor de imágenes ligero, configurable y versátil.
+sudo apt install compton feh -y
+
+# font
+[*] Descargamos la fuente "Hack Nerd Font" en el directorio /usr/local/share/fonts. Esta fuente nos servirá para que algunos iconos aparezcan correctamente.
+cd /usr/local/share/fonts && sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip && sudo unzip Hack.zip
+https://github.com/ryanoasis/nerd-fonts/releases/tag/v2.1.0
+
+# polybar
+[*] Descargamos el archivo "polybar-3.4.3.tar":
+cd /opt && sudo wget https://github.com/polybar/polybar/releases/download/3.4.3/polybar-3.4.3.tar && sudo tar -xf polybar-3.4.3.tar
+https://github.com/polybar/polybar/releases/tag/3.4.3
+[*] Seguimos la guía de compilación:
+cd /opt/polybar && sudo mkdir build && cd build
+sudo cmake ..
+sudo make -j$(nproc)
+sudo make install
+https://github.com/polybar/polybar/wiki/Compiling#compiling
+sudo apt install polybar
+
+# theme polybar
+[*] Comandos para obtener un tema de la polybar (solo 13 temas disponibles):
+rm ~/.config/polybar/launch.sh 2>/dev/null
+cd ~/polybar-themes/polybar-$num_theme
+mkdir -p ~/.local/share/fonts
+cp -r fonts/* ~/.local/share/fonts
+fc-cache -v
+sudo rm /etc/fonts/conf.d/70-no-bitmaps.conf 2>/dev/null
+cp -r * ~/.config/polybar
+~/.config/polybar/launch.sh 2>/dev/null
+https://asciinema.org/a/397872
+
+# powerlevel10k
+[*] Clonando powerlevel10k en el directorio personal (~/powerlevel10k) y siguiendo la guía de instalación:
+cd && git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ~/powerlevel10k
+echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+https://github.com/romkatv/powerlevel10k#manual
+[*] Video de referencia para instalar powerlevel10k (s4vitar):
+https://youtu.be/66IAhBI0bCM?t=3345
+
+# powerlevel10k root
+[*] Clonando powerlevel10k en el directorio personal de root (/root/powerlevel10k) y siguiendo la guía de instalación:
+sudo git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git /root/powerlevel10k
+sudo echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> /root/.zshrc
+https://github.com/romkatv/powerlevel10k#manual
+
+# powerlevel10k config username
+https://asciinema.org/a/397872
+
+# zsh root config
+https://asciinema.org/a/398027
+
+# .zshrc link
+sudo ln -s -f /home/$username/.zshrc /root/.zshrc
+
+# zsh shell default
+sudo usermod --shell /usr/bin/zsh $username
+sudo usermod --shell /usr/bin/zsh root
+
+# lsd
+[*] lsd es el comando "next gen" de ls. Agrega colores y iconos a los archivos.
+cd /opt && sudo wget https://github.com/Peltoche/lsd/releases/download/0.18.0/lsd_0.18.0_amd64.deb
+sudo dpkg -i lsd_0.18.0_amd64.deb && sudo rm lsd_0.18.0_amd64.deb
+[*] Imagen de referencia:
+https://raw.githubusercontent.com/Peltoche/lsd/assets/screen_lsd.png
+
+# bat
+[*] bat es un clon de cat con resaltado de sintaxis.
+sudo wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
+sudo dpkg -i bat_0.17.1_amd64.deb && sudo rm bat_0.17.1_amd64.deb
+https://camo.githubusercontent.com/7b7c397acc5b91b4c4cf7756015185fe3c5f700f70d256a212de51294a0cf673/68747470733a2f2f696d6775722e636f6d2f724773646e44652e706e67
+
+# plugins
+[*] zsh_systax-highlighting: Plugin que proporciona resaltado de sintaxis para el shell zsh.
+[*] zsh-autosuggestions: Plugin que sugiere comandos a medida que escribe según el historial.
+[*] sudo plugin: Al presionar 2 veces la tecla Esc, se agregará "sudo" al comienzo del comando.
+sudo apt install zsh-syntax-highlighting zsh-autosuggestions -y
+cd /usr/share && sudo mkdir zsh-sudo && cd zsh-sudo && sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
+chmod +x /usr/share/zsh-sudo/sudo.plugin.zsh
+cd /usr/share && sudo chown $username:$username -R zsh-*
+https://github.com/zsh-users/zsh-syntax-highlighting#zsh-syntax-highlighting-
+https://github.com/zsh-users/zsh-autosuggestions#zsh-autosuggestions
+
+# fzf username 
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+# fzf root
+sudo git clone --depth 1 https://github.com/junegunn/fzf.git /root/.fzf
+/root/.fzf/install
+
+# powerlevel10k install root s4vitar
+[*] Video de referencia para instalar el powerlevel10k de root (s4vitar):
+https://youtu.be/66IAhBI0bCM?t=3527
+
