@@ -20,6 +20,7 @@ cd Auto-PWE
 ```
 **3)** Se deberá ejecutar todos los 5 pasos (que nos dice el script) de manera ordenada.
 > Si ocurre algún "incidente" como un corte de luz o pérdida de conexión a Internet en algún paso, simplemente deberá ejecutar nuevamente en el paso que se estaba realizando.
+
 **4)** Disfruta.
 ## Vista general
 [![Professional Work Environment](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")](https://github.com/LevisWings/Auto-PWE/blob/main/GeneralView/WorkEnvironment.png?raw=true "Professional Work Environment")
