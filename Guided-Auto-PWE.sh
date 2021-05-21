@@ -355,7 +355,7 @@ function powerlevel10k_zsh_username(){
 	done
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==81')${end}"
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==82') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==83')${end}"; press_key
-	cd && git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ~/powerlevel10k; check
+	cd && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k; check
 	echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc; check
 	echo -e "${purple}\n$(cat $info_path/$info_lang | awk 'NR==77') $(whoami)\n${end}"
 	sleep 5
@@ -374,7 +374,7 @@ function powerlevel10k_zsh_root(){
 	done
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==89')${end}"
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==137') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==138')${end}"; press_key
-	sudo git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git /root/powerlevel10k; check
+	sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k; check
 	sudo echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> /root/.zshrc; check
 	echo -e "${purple}\n$(cat $info_path/$info_lang | awk 'NR==77') root\n${end}"
 	sleep 5

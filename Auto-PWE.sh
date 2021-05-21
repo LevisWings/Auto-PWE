@@ -301,7 +301,7 @@ function powerlevel10k_zsh_username(){
 	rm -f ~/.zshrc 2>/dev/null
 	# Instalando powerlevel10k
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==76') $(whoami)${end}\n"
-	cd && git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ~/powerlevel10k; check
+	cd && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k; check
 	echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc ; check
 	echo -e "${purple}\n$(cat $info_path/$info_lang | awk 'NR==77') $(whoami)\n${end}"
 	sleep 5
@@ -313,7 +313,7 @@ function powerlevel10k_zsh_root(){
 	sudo rm -f /root/.zshrc 2>/dev/null
 	# Instalando powerlevel10k
 	sudo echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==76') root${end}\n"
-	sudo git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git /root/powerlevel10k; check
+	sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k; check
 	sudo echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> /root/.zshrc; check
 	echo -e "${purple}\n$(cat $info_path/$info_lang | awk 'NR==77') root\n${end}"
 	sleep 5
