@@ -82,7 +82,7 @@ function updates_and_dependencies(){
 					echo -ne "${red}\n$(cat $info_path/$info_lang | awk 'NR==7') ${end}${green}\"Parrot\"${end}.\n${red}$(cat $info_path/$info_lang | awk 'NR==8')${end}${yellow}1${end}${red}$(cat $info_path/$info_lang | awk 'NR==9') ${end}"
 					read confirm_parrot
 					if [ $confirm_parrot == 1 ]; then
-						echo -e "${yellow}\n\$(cat $info_path/$info_lang | awk 'NR==36')n${end}"
+						echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==36')${end}"
 						echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2')${end}${yellow}sudo parrot-upgrade${end}"; press_key
 						sudo parrot-upgrade -y; check
 						break
@@ -115,6 +115,7 @@ function updates_and_dependencies(){
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==18')${end}"
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==19')${end}"; press_key
 	sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev -y; check
+	sudo apt install nautilus; check
 	sudo apt purge redshift redshift-gtk -y > /dev/null 2>&1 # Eliminar problema de redshift
 }
 
@@ -130,15 +131,15 @@ function bspwm_and_sxhkd(){
 	echo -e "${yellow}\n$(cat $info_path/$info_lang | awk 'NR==41')\n${end}"
 	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==22')${end}"
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==23')"; press_key
-	sudo apt install bspwm rofi gnome-terminal dunst scrub xclip -y
+	sudo apt install bspwm rofi gnome-terminal dunst scrub xclip -y; check
 	# Instalación de bspwm y sxhkd
 	echo && echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==26')${end}"
 	for i in $(seq 27 30); do
 		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
 	done
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==31')${end}"; press_key
-	cd && git clone https://github.com/baskerville/bspwm.git
-	git clone https://github.com/baskerville/sxhkd.git
+	cd && git clone https://github.com/baskerville/bspwm.git; check
+	git clone https://github.com/baskerville/sxhkd.git; check
 	cd bspwm && make && sudo make install
 	cd ../sxhkd && make && sudo make install
 	# Configuracion y ejecución de bspwm
@@ -213,8 +214,9 @@ function font(){
 	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==49')${end}"
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==50')${end}"
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==3') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==51')${end}"; press_key
-	cd /usr/local/share/fonts && sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip && sudo unzip Hack.zip
-	sudo rm Hack.zip
+	sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip -O /usr/local/share/fonts/Hack.zip; check
+	sudo unzip /usr/local/share/fonts/Hack.zip -d /usr/local/share/fonts/
+	sudo rm /usr/local/share/fonts/Hack.zip
 	sleep 1
 }
 
@@ -226,9 +228,8 @@ function polybar(){
 	mkdir ~/.config/polybar
 	sudo whoami > /dev/null 2>&1; check
 	while true; do
-		clear
-		banner
-		echo -e "\n${purple}$(cat $info_path/$info_lang | awk 'NR==54')${end}\n\n\t - [${yellow}1${end}] $(cat $info_path/$info_lang | awk 'NR==55')\n\t - [${yellow}2${end}] $(cat $info_path/$info_lang | awk 'NR==56')"
+		clear && banner
+		echo -e "\n${purple}$(cat $info_path/$info_lang | awk 'NR==54')${end}\n\n\t - [${yellow}1${end}] $(cat $info_path/$info_lang | awk 'NR==55')\n\t - [${yellow}2${end}] $(cat $info_path/$info_lang | awk 'NR==56')\n\t - [${yellow}3${end}] $(cat $info_path/$info_lang | awk 'NR==112')"
 		echo -e "\n${red}$(cat $info_path/$info_lang | awk 'NR==57')${end}"
 		echo -ne "\n\t$(cat $info_path/$info_lang | awk 'NR==4') "
 		read opcion_polybar
@@ -260,6 +261,14 @@ function polybar(){
 			echo -e "${cyan}$(cat $info_path/$guide_lang | awk 'NR==2')${end}${yellow}$(cat $info_path/$guide_lang | awk 'NR==63')${end}"; press_key
 			sudo apt install polybar -y; check
 			break
+		elif [ $opcion_polybar == 3 ]; then
+			echo -ne "\n${yellow}$(cat $info_path/$info_lang | awk 'NR==111') ${end}\n${red}$(cat $info_path/$info_lang | awk 'NR==8')${end}${yellow}1${end}${red}$(cat $info_path/$info_lang | awk 'NR==9') ${end}"
+			read confirm
+			if [ $confirm == "1" ]; then
+				break
+			else
+				:
+			fi
 		else
 			:
 		fi
@@ -357,8 +366,9 @@ function powerlevel10k_zsh_username(){
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==82') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==83')${end}"; press_key
 	cd && git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k; check
 	echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc; check
+	cd $current_path
 	echo -e "${purple}\n$(cat $info_path/$info_lang | awk 'NR==77') $(whoami)\n${end}"
-	sleep 5
+	press_key
 	zsh
 }
 
@@ -376,8 +386,9 @@ function powerlevel10k_zsh_root(){
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==137') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==138')${end}"; press_key
 	sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k; check
 	sudo echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> /root/.zshrc; check
+	cd $current_path
 	echo -e "${purple}\n$(cat $info_path/$info_lang | awk 'NR==77') root\n${end}"
-	sleep 5
+	press_key
 	sudo zsh
 }
 
@@ -494,7 +505,7 @@ function powerlevel10k_zsh_root_config(){
 		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
 	done
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==108') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==109')${end}"; press_key
-	cd /opt && sudo wget https://github.com/Peltoche/lsd/releases/download/0.18.0/lsd_0.18.0_amd64.deb
+	cd /opt && sudo wget https://github.com/Peltoche/lsd/releases/download/0.18.0/lsd_0.18.0_amd64.deb; check
 	sudo dpkg -i lsd_0.18.0_amd64.deb && sleep 1 && sudo rm lsd_0.18.0_amd64.deb
 	echo -e "\n${yellow}$(cat $info_path/$info_lang | awk 'NR==85')${end}\n"
 	echo -e "${blue}$(cat $info_path/$guide_lang | awk 'NR==112')${end}"
@@ -502,7 +513,7 @@ function powerlevel10k_zsh_root_config(){
     	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
 	done
 	echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==108') ${end}${purple}$(cat $info_path/$guide_lang | awk 'NR==115')${end}"; press_key
-	sudo wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
+	sudo wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb; check
 	sudo dpkg -i bat_0.17.1_amd64.deb && sleep 1 && sudo rm bat_0.17.1_amd64.deb
 }
 
@@ -518,7 +529,7 @@ function plugins(){
 		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==108') ${end}${purple}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
 	done; press_key
 	sudo apt install zsh-syntax-highlighting zsh-autosuggestions -y
-	cd /usr/share && sudo mkdir zsh-sudo && cd zsh-sudo && sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
+	cd /usr/share && sudo mkdir zsh-sudo && cd zsh-sudo && sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh; check
 	chmod +x /usr/share/zsh-sudo/sudo.plugin.zsh
 	cd /usr/share && sudo chown $username:$username -R zsh-*
 }
@@ -529,7 +540,7 @@ function fzf_username(){
 	for i in $(seq 129 130); do
 		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
 	done; press_key
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; check
 	~/.fzf/install
 }
 
@@ -539,7 +550,7 @@ function fzf_root(){
 	for i in $(seq 133 134); do
 		echo -e "\t${cyan}$(cat $info_path/$guide_lang | awk 'NR==2') ${end}${yellow}$(cat $info_path/$guide_lang | awk "NR==$i")${end}"
 	done; press_key
-	sudo git clone --depth 1 https://github.com/junegunn/fzf.git /root/.fzf
+	sudo git clone --depth 1 https://github.com/junegunn/fzf.git /root/.fzf; check
 	/root/.fzf/install
 }
 
@@ -600,7 +611,13 @@ if [[ $# -eq 1 ]]; then
 			clear; banner; echo
 			polybar
 			clear; banner; echo
-			powerlevel10k_zsh_username
+			echo -ne "${yellow}$(cat $info_path/$info_lang | awk 'NR==113')${end}\n${red}$(cat $info_path/$info_lang | awk 'NR==8')${end}${yellow}1${end}${red}$(cat $info_path/$info_lang | awk 'NR==9')${end} "
+			read confirm_powerlevel
+			if [ $confirm_powerlevel == "1" ]; then
+				powerlevel10k_zsh_username
+			else
+				echo -ne "\n${blue}$(cat $info_path/$info_lang | awk 'NR==114')${end}\n"
+			fi
 		else
 			clear; banner; echo
 			echo -e "${red}\n$(cat $info_path/$info_lang | awk 'NR==97')\n${end}"
@@ -611,7 +628,9 @@ if [[ $# -eq 1 ]]; then
 		if [[ "$(whoami)" != "root" ]]; then
 			username=$(whoami)
 			clear; banner; echo
-			powerlevel10k_zsh_username_config
+			if [[ -f ~/.p10k.zsh ]]; then
+				powerlevel10k_zsh_username_config
+			fi
 			clear; banner; echo
 			fzf_username
 		else
@@ -623,7 +642,13 @@ if [[ $# -eq 1 ]]; then
 	elif [[ $1 == 4 ]];then
 		if [[ "$(whoami)" == "root" ]]; then
 			clear; banner; echo
-			powerlevel10k_zsh_root
+			echo -ne "${yellow}$(cat $info_path/$info_lang | awk 'NR==113') (root)${end}\n${red}$(cat $info_path/$info_lang | awk 'NR==8')${end}${yellow}1${end}${red}$(cat $info_path/$info_lang | awk 'NR==9')${end} "
+			read confirm_powerlevel
+			if [ $confirm_powerlevel == "1" ]; then
+				powerlevel10k_zsh_root
+			else
+				echo -ne "\n${blue}$(cat $info_path/$info_lang | awk 'NR==114')${end}\n"
+			fi
 		else
 			clear; banner; echo
 			echo -e "${red}\n$(cat $info_path/$info_lang | awk 'NR==99')${end}"
@@ -635,13 +660,12 @@ if [[ $# -eq 1 ]]; then
 			clear; banner; echo
 			echo -ne "${yellow}$(cat $info_path/$info_lang | awk 'NR==100') ${end}"
 			read username
-			grep $username /etc/passwd >/dev/null 2>&1
-			if [[ "$(echo $?)" == "0" ]]; then
-				echo -ne "${red}$(cat $info_path/$info_lang | awk 'NR==101') ${end}${cyan}$username${end}${red}\n$(cat $info_path/$info_lang | awk 'NR==8')${end}${yellow}1${end}${red}$(cat $info_path/$info_lang | awk 'NR==9') ${end}"
-				read option3
-				if [ $option3 == 1 ]; then
+			for i in $(cat /etc/passwd | cut -d ':' -f 1); do
+				if [ $i == $username ]; then
 					clear; banner; echo
-					powerlevel10k_zsh_root_config
+					if [[ -f /root/.p10k.zsh ]]; then
+						powerlevel10k_zsh_root_config
+					fi
 					clear; banner; echo
 					plugins
 					clear; banner; echo
@@ -655,13 +679,10 @@ if [[ $# -eq 1 ]]; then
 						read option5
 					done
 					shutdown -r 0
-				else
-					exit 1
 				fi
-			else
-				echo -e "${red}\n$(cat $info_path/$info_lang | awk 'NR==104') $username $(cat $info_path/$info_lang | awk 'NR==105')\n${end}"
-				exit 1
-			fi
+			done
+			echo -e "${red}\n$(cat $info_path/$info_lang | awk 'NR==104') $username $(cat $info_path/$info_lang | awk 'NR==105')\n${end}"
+			exit 1
 		else
 			clear; banner; echo
 			echo -e "${red}\n$(cat $info_path/$info_lang | awk 'NR==99')\n${end}"

@@ -22,7 +22,7 @@ No
 
 # Function check()
 [+] Successful action
-[!] An error occurred
+[!] An error occurred. Rerun the step or check for an external occurrence (no Internet connection, missing dependencies, resource not found, etc.).
 
 # Function press_key()
 [.] Press the Enter key to continue...
@@ -108,3 +108,7 @@ does not exist
 
 # Others
 [?] You can use the "Auto-PWE.sh" script if you don't want to watch the commands and some explanations that occur at each step.
+[?] Are you sure you want to skip this step?
+Skip this step
+[?] Do you want to proceed with the installation of powerlevel10k? (optional)
+[i] Skip installation of the powerlevel10k.Be sure to also skip step 3 and directly execute step 4:

@@ -22,7 +22,7 @@ No
 
 # Function check()
 [+] Acción realizada con éxito
-[!] Ocurrió un error
+[!] Ocurrió un error. Vuelve a ejecutar el paso o revisa si hay una ocurrencia externa (sin conexión a Internet, falta de dependencias, no se encuentra un recurso, etc.)
 
 # Function press_key()
 [.] Presiona la tecla Enter para continuar...
@@ -108,3 +108,7 @@ no existe
 
 # Others
 [?] Puede usar el script "Auto-PWE.sh" si no quiere observar los comandos y algunas explicaciones que ocurren en cada paso.
+[?] ¿Estás seguro de saltar este paso?
+Saltar este paso
+[?] ¿Quieres proceder con la instalación del powerlevel10k? (opcional)
+[i] Instalación omitida de la powerlevel10k.

@@ -47,7 +47,7 @@ sudo apt install compton feh -y
 
 # font
 [*] We download the font "Hack Nerd Font" in the directory /usr/local/share/fonts. This font will help us to make some icons appear correctly.
-cd /usr/local/share/fonts && sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip && sudo unzip Hack.zip
+sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip -O /usr/local/share/fonts/Hack.zip && sudo unzip /usr/local/share/fonts/Hack.zip -d /usr/local/share/fonts/
 https://github.com/ryanoasis/nerd-fonts/releases/tag/v2.1.0
 
 # polybar
